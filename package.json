@@ -1,0 +1,26 @@
+{
+  "name": "reversify",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Dannii Willis <curiousdannii@gmail.com>",
+  "description": "A plugin for bible-passage-reference-parser to change versification systems",
+  "keywords": [
+    "bible",
+    "verses"
+  ],
+  "main": "index.js",
+  "repository": "curiousdannii/reversify",
+  "homepage": "https://github.com/curiousdannii/reversify",
+  "bugs": "https://github.com/curiousdannii/reversify/issues",
+  "devDependencies": {
+    "bible-passage-reference-parser": "^1.0.0",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
+  "peerDependencies": {
+    "bible-passage-reference-parser": "^1.0.0"
+  },
+  "scripts": {
+    "test": "mocha tests.js"
+  }
+}
