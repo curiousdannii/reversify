@@ -15,12 +15,14 @@
   "devDependencies": {
     "bible-passage-reference-parser": "^1.0.0",
     "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "sweet.js": "^0.7.7"
   },
   "peerDependencies": {
     "bible-passage-reference-parser": "^1.0.0"
   },
   "scripts": {
+    "prepublish": "sjs --readable-names --module ./src/macros.sjs src/transformations.sjs | cat src/transformations.header.js - src/transformations.footer.js > transformations.js",
     "test": "mocha tests.js"
   }
 }

@@ -20,10 +20,10 @@ function reversify( to_translation )
 {
     var bcv = this;
 
-    /// Normalise the requested translation
+    // Normalise the requested translation
     to_translation = to_translation ? to_translation.toLowerCase() : 'default';
     to_translation = bcv.translations.aliases[ to_translation ] ? bcv.translations.aliases[ to_translation ].alias : 'default';
-    var to_translation_info = bcv.translation_info( to_translation );
+    //var to_translation_info = bcv.translation_info( to_translation );
 
     // Go through each group of passages that was parsed
     var entity_groups = bcv.parsed_entities().map( function( group )
@@ -37,7 +37,7 @@ function reversify( to_translation )
             return group.osis;
         }
 
-        var group_translation_info = bcv.translation_info( group_translation );
+        //var group_translation_info = bcv.translation_info( group_translation );
 
         // Go through each individual reference
         return group.entities.map( function( entity )
@@ -74,20 +74,21 @@ function reversify( to_translation )
 function renumber_verses( from_verses, to_verses, ref )
 {
     // Chapter, verse to verse-in-book
-	var chapter_count = 0;
+    var chapter_count = 0;
     var vib = 0;
-	while ( chapter_count + 1 < ref.c )
-	{
-		vib += from_verses[ chapter_count ];
-		chapter_count++;
-	}
-	vib += ref.v;
-    // Verse-in-book to chapter, verse
-    ref.c = 1;
-    while ( vib > to_verses[ ref.c - 1 ] )
+    while ( chapter_count + 1 < ref.c )
     {
-        vib -= to_verses[ ref.c - 1 ];
+        vib += from_verses[ chapter_count ];
+        chapter_count++;
+    }
+    vib += ref.v;
+    // Verse-in-book to chapter, verse
+    ref.c = 0;
+    while ( vib > to_verses[ ref.c ] )
+    {
+        vib -= to_verses[ ref.c ];
         ref.c++;
     }
+    ref.c++;
     ref.v = vib;
 }
