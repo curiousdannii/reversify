@@ -15,6 +15,7 @@
   "devDependencies": {
     "bible-passage-reference-parser": "^1.0.0",
     "chai": "^3.5.0",
+    "jsesc": "^1.0.0",
     "mocha": "^2.4.5",
     "sweet.js": "^0.7.7"
   },
@@ -22,7 +23,7 @@
     "bible-passage-reference-parser": "^1.0.0"
   },
   "scripts": {
-    "prepublish": "sjs --readable-names --module ./src/macros.sjs src/transformations.sjs | cat src/transformations.header.js - src/transformations.footer.js > transformations.js",
+    "prepublish": "sjs -p -m ./src/macros.sjs src/transformations.data | node > transformations.js",
     "test": "mocha tests.js"
   }
 }
