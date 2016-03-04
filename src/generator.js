@@ -10,63 +10,36 @@ http://github.com/curiousdannii/reversify
 */
 
 var _ = require( 'lodash' );
+var fs = require( 'fs' );
 var jsesc = require( 'jsesc' );
 
 // Escape non-ASCII and RegExp special characters
-function escape( code )
+function char( code )
 {
 	return _.escapeRegExp( jsesc( String.fromCharCode( code ) ) ).replace( /\\\\/g, '\\' );
 }
 
 var data = {};
 
-// Parse a reference into verse-in-book numbers
-var ref_pattern = /^(\d+):(\d+)(-((\d+):)?(\d+))?$/;
+// Create a RegExp, and cleanup any repeated character classes
+function regex( pattern )
+{
+	return new RegExp( pattern.replace( /\[([^-]+)-([^-]+)\]/g, ( match, a, b ) => a === b ? a : match ) );
+}
+
+// Parse a single verse reference
 function parse_ref( ref )
 {
-	var matches = ref_pattern.exec( ref );
-    var result = {
-        label: ref,
-        start: {
-            c: +matches[1],
-            v: +matches[2],
-        },
-        end: {
-            c: +matches[5] || +matches[1],
-            v: +matches[6] || +matches[2],
-        },
-    };
-
-	// Make regexes for matching verses
-	if ( result.start.c !== result.end.c )
-	{
-		throw new Error( 'Transforms ranging over multiple chapters are not yet supported' );
-	}
-	// C:[V-V]
-	var pattern = escape( result.start.c ) + ':' + ( result.start.v === result.end.v ? escape( result.start.v ) : `[${ escape( result.start.v ) }-${ escape( result.end.v ) }]` );
-    result.regex_match = new RegExp( pattern );
-	result.regex_start = new RegExp( '^' + pattern );
-	result.regex_end = new RegExp( pattern + '$' );
-	pattern
-	return result;
+	var cv = ref.split( ':' );
+	return {
+		label: ref,
+		c: +cv[0],
+		v: +cv[1],
+	};
 }
 
 module.exports.topntail = ( func ) => {
-    console.log( `/*
-
-Reversify transformations
-=========================
-
-Copyright (c) 2016 Dannii Willis
-MIT licenced
-http://github.com/curiousdannii/reversify
-
-*/
-
-module.exports = function( translation, entity, to_default )
-{
-	// Convert the C and V numbers into characters with the format C:V-C:V
-	var entity_range = String.fromCharCode( entity.start.c, 58, entity.start.v, 45, entity.end.c, 58, entity.end.v );` );
+    console.log( fs.readFileSync( './src/header.js', 'utf8' ) );
 
 	func();
 
@@ -76,66 +49,45 @@ module.exports = function( translation, entity, to_default )
 
 module.exports.makebook = ( name, func ) => {
 	data.book = name;
+	data.trans_check = null;
 	console.log( `	if ( entity.start.b === '${ name }' )
 	{` );
 	func();
-	console.log( `	}` );
+	console.log( `		}
+	}` );
 };
 
-module.exports.maketransformation = ( type, translations, from, to ) =>
+module.exports.maketransformation = ( type, translations, args ) =>
 {
-    console.log( `		// ${ transforms[type].label } ${ data.book } ${ from } => ${ to }` );
-    from = parse_ref( from );
-    to = parse_ref( to );
     var trans_check = translations.length > 1 ? `${ JSON.stringify( translations ) }.indexOf( translation ) > -1` : `translation === '${ translations[0] }'`;
-	var chap_check = 'entity.end.c === ' + Math.max( from.end.c, to.end.c );
-    console.log( `		if ( ${ trans_check } && ( ${ chap_check } || ( to_default ? ${ from.regex_match } : ${ to.regex_match } ).test( entity_range ) ) )
-        {
-        	${ transforms[type].func( from, to ) }
-        }` );
+	if ( data.trans_check !== trans_check )
+	{
+		if ( data.trans_check != null )
+		{
+			console.log( `		}` );
+		}
+		data.trans_check = trans_check;
+		console.log( `		if ( ${ trans_check } )
+		{` );
+	}
+	console.log( `			${ transforms[type].func.apply( null, args ) }` );
 };
 
 var transforms = {
     chapter_break: {
-        label: 'Chapter break',
-        func: ( from, to ) => {
-			var verse_range = to.end.v - to.start.v + 1;
-			var verse_offset = from.start.v - to.start.v;
-			var to_higher = to.end.c > from.end.c;
-			var higher_chap = Math.max( from.end.c, to.end.c );
-            return `if ( to_default )
+        func: ( direction, break_at, count ) => {
+			var dir_from = direction === 'from';
+			break_at = parse_ref( break_at );
+
+			var from_regex = regex( `${ char( break_at.c ) }:[${ char( break_at.v ) }-${ char( break_at.v + count - 1 ) }]|${ char( break_at.c + 1 ) }:` );
+			var to_regex = regex( `${ char( break_at.c + 1 ) }:` );
+
+			var cond = `( ${ dir_from ? '' : '!' }to_default ? ${ from_regex } : ${ to_regex } ).test( entity_range )`
+
+			return `// Chapter break ${ data.book } ${ break_at.label }
+			if ( ${ cond } )
 			{
-				if ( ${ from.regex_start }.test( entity_range ) )
-				{
-					entity.start.c = ${ to.start.c };
-					entity.start.v -= ${ verse_offset };
-				}
-				if ( ${ from.regex_end }.test( entity_range ) )
-				{
-					entity.end.c = ${ to.start.c };
-					entity.end.v -= ${ verse_offset };
-				}
-				else if ( entity.end.c === ${ higher_chap } )
-				{
-					entity.end.v ${ to_higher ? '+=' : '-=' } ${ verse_range };
-				}
-			}
-			else
-			{
-				if ( ${ to.regex_start }.test( entity_range ) )
-				{
-					entity.start.c = ${ from.start.c };
-					entity.start.v += ${ verse_offset };
-				}
-				if ( ${ to.regex_end }.test( entity_range ) )
-				{
-					entity.end.c = ${ from.start.c };
-					entity.end.v += ${ verse_offset };
-				}
-				else if ( entity.end.c === ${ higher_chap } )
-				{
-					entity.end.v ${ to_higher ? '-=' : '+=' } ${ verse_range };
-				}
+				do_chapter_break({ early: to_default === ${ dir_from }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }, count: ${ count } });
 			}`;
         },
     },

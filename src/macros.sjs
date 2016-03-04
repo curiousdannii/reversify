@@ -34,8 +34,8 @@ export book;
 
 macro transformation
 {
-    rule { $type:str $translations:str (,) ... $from => $to } => {
-        gen.maketransformation( $type, [ $translations (,) ... ], $from, $to );
+    rule { chapter_break $direction:str $translations:str (,) ... @ $break $count } => {
+        gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ $direction, $break, $count ] );
     }
 }
 export transformation;

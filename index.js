@@ -43,11 +43,11 @@ function reversify( to_translation )
         {
             if ( group_translation !== 'default' )
             {
-                entity = transformations( group_translation, entity, true );
+                entity = transformations( entity, group_translation, true );
             }
             if ( to_translation !== 'default' )
             {
-                entity = transformations( to_translation, entity, false );
+                entity = transformations( entity, to_translation, false );
             }
 
             var start_osis = entity.start.b + '.' + entity.start.c + '.' + entity.start.v;

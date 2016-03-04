@@ -11,43 +11,98 @@ http://github.com/curiousdannii/reversify
 
 data
 {
-    book Gen
-    {
-        transformation chapter_break nab '32:1' => '31:55'
-    }
-    book Exod
-    {
-        transformation chapter_break nab '7:26-29' => '8:1-4'
-        transformation chapter_break nab '21:37' => '22:1'
-    }
-    book Lev
-    {
-        transformation chapter_break nab '5:20-26' => '6:1-7'
-    }
-    book Num
-    {
-        transformation chapter_break nab '17:1-15' => '16:36-50'
-        // Chapter heading 26
-        transformation chapter_break nab '30:1' => '29:40'
-
-    }
-    book Deut
-    {
-        transformation chapter_break nab '13:1' => '12:32'
-        transformation chapter_break nab '23:1' => '22:30'
-        transformation chapter_break nab '28:69' => '29:1'
-
-    }
-    book Song
-    {
-        transformation chapter_break nab '7:1' => '6:13'
-    }
-    book Jonah
-    {
-        transformation chapter_break nab '2:1' => '1:17'
-    }
-    book Mic
-    {
-        transformation chapter_break nab '4:14' => '5:1'
-    }
+	book Gen
+	{
+		transformation chapter_break to nab @ '31:55' 1
+	}
+	book Exod
+	{
+		transformation chapter_break from nab @ '7:26' 4
+		transformation chapter_break from nab @ '21:37' 1
+	}
+	book Lev
+	{
+		transformation chapter_break from nab @ '5:20' 7
+	}
+	book Num
+	{
+		transformation chapter_break to nab @ '16:36' 15
+		// nab Chapter heading 26
+		transformation chapter_break to nab @ '29:40' 1
+	}
+	book Deut
+	{
+		transformation chapter_break to nab @ '12:32' 1
+		transformation chapter_break to nab @ '22:30' 1
+		transformation chapter_break from nab @ '28:69' 1
+	}
+	book '1Sam'
+	{
+		// nab split verses 20:42-21:1 = 20:42
+		transformation chapter_break to nab @ '23:29' 1
+	}
+	book '2Sam'
+	{
+		transformation chapter_break to nab @ '18:33' 1
+	}
+	book '1Kgs'
+	{
+		transformation chapter_break to nab @ '4:21' 14
+		// nab split verses 21:43-44 = 21:43
+	}
+	book '2Kgs'
+	{
+		transformation chapter_break to nab @ '11:21' 1
+	}
+	book '1Chr'
+	{
+		transformation chapter_break from nab @ '5:27' 15
+		// nab split verses 12:4-5 = 12:4
+	}
+	book '2Chr'
+	{
+		transformation chapter_break from nab @ '1:18' 1
+		transformation chapter_break from nab @ '13:23' 1
+	}
+	book Neh
+	{
+		transformation chapter_break from nab @ '3:33' 6
+		// nab split verses 7:67 = 7:67-68
+		transformation chapter_break to nab @ '9:38' 1
+	}
+	book Job
+	{
+		transformation chapter_break from nab @ '40:25' 8
+	}
+	/*book Ps
+	{
+		// nab split verses 2:11 = 2:11-12
+		// nab heading 3:1
+		// nab heading 4:1
+		// nab heading 5:1
+		// nab heading 6:1
+		// nab heading 7:1
+		// nab heading 8:1
+		// nab heading 9:1
+		// nab heading 12:1
+		// nab heading 13:1 ! TEST THIS
+		// nab split verses 13:6 = 13:5-6 ! TEST THIS
+		// nab heading 18:1
+		// nab heading 19:1
+		// nab heading 20:1
+		// nab heading 22:1
+		// nab heading 30:1
+	}*/
+	book Song
+	{
+		transformation chapter_break to nab @ '6:13' 1
+	}
+	book Jonah
+	{
+		transformation chapter_break to nab @ '1:17' 1
+	}
+	book Mic
+	{
+		transformation chapter_break from nab @ '4:14' 1
+	}
 }
