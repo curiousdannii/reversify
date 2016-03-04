@@ -11,8 +11,43 @@ http://github.com/curiousdannii/reversify
 
 data
 {
+    book Gen
+    {
+        transformation chapter_break nab '32:1' => '31:55'
+    }
+    book Exod
+    {
+        transformation chapter_break nab '7:26-29' => '8:1-4'
+        transformation chapter_break nab '21:37' => '22:1'
+    }
     book Lev
     {
         transformation chapter_break nab '5:20-26' => '6:1-7'
+    }
+    book Num
+    {
+        transformation chapter_break nab '17:1-15' => '16:36-50'
+        // Chapter heading 26
+        transformation chapter_break nab '30:1' => '29:40'
+
+    }
+    book Deut
+    {
+        transformation chapter_break nab '13:1' => '12:32'
+        transformation chapter_break nab '23:1' => '22:30'
+        transformation chapter_break nab '28:69' => '29:1'
+
+    }
+    book Song
+    {
+        transformation chapter_break nab '7:1' => '6:13'
+    }
+    book Jonah
+    {
+        transformation chapter_break nab '2:1' => '1:17'
+    }
+    book Mic
+    {
+        transformation chapter_break nab '4:14' => '5:1'
     }
 }

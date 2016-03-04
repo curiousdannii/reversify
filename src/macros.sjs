@@ -19,7 +19,7 @@ macro data
 {
     rule { { $x ... } } => {
         var gen = require( './src/generator.js' );
-        gen.gen( () => { $x ... } );
+        gen.topntail( () => { $x ... } );
     }
 }
 export data;

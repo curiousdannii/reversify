@@ -11,9 +11,8 @@ describe( 'reversify', function()
 {
 	it( 'should handle passages which don\'t need reversifying', function()
 	{
-		var matt_1_1 = bcv.parse( 'Matthew 1:1' );
-		expect( matt_1_1.reversify( 'default' ) ).to.equal( 'Matt.1.1' );
-		expect( matt_1_1.reversify( 'esv' ) ).to.equal( 'Matt.1.1' );
+		expect( bcv.parse( 'Matthew 1:1' ).reversify( 'default' ) ).to.equal( 'Matt.1.1' );
+		expect( bcv.parse( 'Matthew 1:1' ).reversify( 'esv' ) ).to.equal( 'Matt.1.1' );
 	});
 
 	describe( 'should handle simple verse renumberings', function()
@@ -22,6 +21,8 @@ describe( 'reversify', function()
 		{
 			expect( bcv.parse( 'Lev 5:21 NAB' ).reversify( 'default' ) ).to.equal( 'Lev.6.2' );
 			expect( bcv.parse( 'Lev 6:2' ).reversify( 'NAB' ) ).to.equal( 'Lev.5.21' );
+			expect( bcv.parse( 'Jonah 2:1 NAB' ).reversify( 'default' ) ).to.equal( 'Jonah.1.17' );
+			expect( bcv.parse( 'Jonah 1:17' ).reversify( 'NAB' ) ).to.equal( 'Jonah.2.1' );
 		});
 
 		it( 'for entire ranges', function()
@@ -38,6 +39,12 @@ describe( 'reversify', function()
 			expect( bcv.parse( 'Lev 6:6-9' ).reversify( 'NAB' ) ).to.equal( 'Lev.5.25-Lev.6.2' );
 			expect( bcv.parse( 'Lev 5:18-6:2 NAB' ).reversify( 'default' ) ).to.equal( 'Lev.5.18-Lev.6.9' );
 			expect( bcv.parse( 'Lev 5:18-6:9' ).reversify( 'NAB' ) ).to.equal( 'Lev.5.18-Lev.6.2' );
+			expect( bcv.parse( 'Jonah 1:16-2:1 NAB' ).reversify( 'default' ) ).to.equal( 'Jonah.1.16-Jonah.1.17' );
+			expect( bcv.parse( 'Jonah 1:16-17' ).reversify( 'NAB' ) ).to.equal( 'Jonah.1.16-Jonah.2.1' );
+			expect( bcv.parse( 'Jonah 2:1-2 NAB' ).reversify( 'default' ) ).to.equal( 'Jonah.1.17-Jonah.2.1' );
+			expect( bcv.parse( 'Jonah 1:17-2:1' ).reversify( 'NAB' ) ).to.equal( 'Jonah.2.1-Jonah.2.2' );
+			expect( bcv.parse( 'Jonah 1:16-2:2 NAB' ).reversify( 'default' ) ).to.equal( 'Jonah.1.16-Jonah.2.1' );
+			expect( bcv.parse( 'Jonah 1:16-2:1' ).reversify( 'NAB' ) ).to.equal( 'Jonah.1.16-Jonah.2.2' );
 		});
 	});
 });
