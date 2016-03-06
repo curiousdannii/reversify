@@ -9,12 +9,6 @@ http://github.com/curiousdannii/reversify
 
 */
 
-// Convert the C and V numbers into characters with the format C:V-C:V
-function make_range_string( entity )
-{
-	return String.fromCharCode( entity.start.c, 58, entity.start.v, 45, entity.end.c, 58, entity.end.v );
-}
-
 // Insert an early chapter break
 function do_chapter_break( opt )
 {

@@ -43,7 +43,7 @@ module.exports.topntail = ( func ) => {
 
 	console.log( `module.exports = function( entity, translation, to_default )
 {
-	var entity_range = make_range_string( entity );` );
+	var chapters;` );
 
 	func();
 
@@ -87,14 +87,8 @@ var transforms = {
         func: ( direction, break_at, count ) => {
 			var dir_from = direction === 'from';
 			break_at = parse_ref( break_at );
-
-			var from_regex = regex( `${ char( break_at.c ) }:[${ char( break_at.v ) }-${ char( break_at.v + count - 1 ) }]|${ char( break_at.c + 1 ) }:` );
-			var to_regex = regex( `${ char( break_at.c + 1 ) }:` );
-
-			var cond = `( ${ dir_from ? '' : '!' }to_default ? ${ from_regex } : ${ to_regex } ).test( entity_range )`
-
 			return `// Chapter break ${ data.book } ${ break_at.label }
-			if ( ${ cond } )
+			if ( entity.start.c === ${ break_at.c } || entity.start.c === ${ break_at.c + 1 } || entity.end.c === ${ break_at.c } || entity.end.c === ${ break_at.c + 1 } )
 			{
 				do_chapter_break({ early: to_default === ${ dir_from }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }, count: ${ count } });
 			}`;
@@ -104,11 +98,11 @@ var transforms = {
 		func: ( count, chapters ) => {
 			var chap_regex = regex( `[${ chapters.map( c => char( c ) ).join( '' ) }]:` );
 
-			return `// Psalm heading ${ count } verse(s) @ ${ chapters.join( ', ' ) }
-			if ( ${ chap_regex }.test( entity_range ) )
+			return `// Psalm heading ${ count } verse(s)
+			chapters = ${ JSON.stringify( chapters ) };
+			if ( chapters.indexOf( entity.start.c ) >= 0 || chapters.indexOf( entity.end.c ) >= 0 )
 			{
 				do_psalm_heading({ to_default: to_default, entity: entity, count: ${ count } });
-				entity_range = make_range_string( entity );
 			}`;
 		},
 	},
