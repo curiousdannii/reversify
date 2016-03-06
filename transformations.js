@@ -222,6 +222,17 @@ module.exports = function( entity, translation, to_default )
 			}
 		}
 	}
+	if ( entity.start.b === 'Eccl' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter break Eccl 4:17
+			if ( ( to_default ? /\x04:\x11|\x05:/ : /\x05:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === true, entity: entity, c: 4, v: 17, count: 1 });
+			}
+		}
+	}
 	if ( entity.start.b === 'Song' )
 	{
 		if ( translation === 'nab' )
@@ -230,6 +241,71 @@ module.exports = function( entity, translation, to_default )
 			if ( ( !to_default ? /\x06:\r|\x07:/ : /\x07:/ ).test( entity_range ) )
 			{
 				do_chapter_break({ early: to_default === false, entity: entity, c: 6, v: 13, count: 1 });
+			}
+		}
+	}
+	if ( entity.start.b === 'Is' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter break Is 8:23
+			if ( ( to_default ? /\b:\x17|\t:/ : /\t:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === true, entity: entity, c: 8, v: 23, count: 1 });
+			}
+		}
+	}
+	if ( entity.start.b === 'Jer' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter break Jer 8:23
+			if ( ( to_default ? /\b:\x17|\t:/ : /\t:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === true, entity: entity, c: 8, v: 23, count: 1 });
+			}
+		}
+	}
+	if ( entity.start.b === 'Ezek' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter break Ezek 20:45
+			if ( ( !to_default ? /\x14:[--1]|\x15:/ : /\x15:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === false, entity: entity, c: 20, v: 45, count: 5 });
+			}
+		}
+	}
+	if ( entity.start.b === 'Dan' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter break Dan 5:31
+			if ( ( !to_default ? /\x05:\x1F|\x06:/ : /\x06:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === false, entity: entity, c: 5, v: 31, count: 1 });
+			}
+		}
+	}
+	if ( entity.start.b === 'Hos' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter break Hos 1:10
+			if ( ( !to_default ? /\x01:[\n-\x0B]|\x02:/ : /\x02:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === false, entity: entity, c: 1, v: 10, count: 2 });
+			}
+			// Chapter break Hos 11:12
+			if ( ( !to_default ? /\x0B:\f|\f:/ : /\f:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === false, entity: entity, c: 11, v: 12, count: 1 });
+			}
+			// Chapter break Hos 13:16
+			if ( ( !to_default ? /\r:\x10|\x0E:/ : /\x0E:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === false, entity: entity, c: 13, v: 16, count: 1 });
 			}
 		}
 	}
@@ -252,6 +328,28 @@ module.exports = function( entity, translation, to_default )
 			if ( ( to_default ? /\x04:\x0E|\x05:/ : /\x05:/ ).test( entity_range ) )
 			{
 				do_chapter_break({ early: to_default === true, entity: entity, c: 4, v: 14, count: 1 });
+			}
+		}
+	}
+	if ( entity.start.b === 'Nah' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter break Nah 1:15
+			if ( ( !to_default ? /\x01:\x0F|\x02:/ : /\x02:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === false, entity: entity, c: 1, v: 15, count: 1 });
+			}
+		}
+	}
+	if ( entity.start.b === 'Zech' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter break Zech 1:18
+			if ( ( !to_default ? /\x01:[\x12-\x15]|\x02:/ : /\x02:/ ).test( entity_range ) )
+			{
+				do_chapter_break({ early: to_default === false, entity: entity, c: 1, v: 18, count: 4 });
 			}
 		}
 	}
