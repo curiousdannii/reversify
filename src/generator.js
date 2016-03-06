@@ -94,6 +94,17 @@ var transforms = {
 			}`;
         },
     },
+    chapter_split: {
+        func: ( direction, break_at ) => {
+			var dir_from = direction === 'from';
+			break_at = parse_ref( break_at );
+			return `// Chapter split ${ data.book } ${ break_at.label }
+			if ( start.c >= ${ break_at.c } || end.c >= ${ break_at.c } )
+			{
+				do_chapter_split({ early: to_default === ${ dir_from }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v } });
+			}`;
+        },
+    },
 	psalm_heading: {
 		func: ( count, chapters ) => {
 			var chap_regex = regex( `[${ chapters.map( c => char( c ) ).join( '' ) }]:` );

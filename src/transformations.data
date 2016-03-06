@@ -122,10 +122,10 @@ data
 		transformation chapter_break to nab @ '11:12' 1
 		transformation chapter_break to nab @ '13:16' 1
 	}
-	/*book Joel
+	book Joel
 	{
-		// chap split nab 2 -> 2-3
-	}*/
+		transformation chapter_split to nab @ '2:28'
+	}
 	book Jonah
 	{
 		transformation chapter_break to nab @ '1:17' 1
@@ -142,10 +142,10 @@ data
 	{
 		transformation chapter_break to nab @ '1:18' 4
 	}
-	/*book Mal
+	book Mal
 	{
-		// chap joined nab 3-4
-	}*/
+		transformation chapter_split from nab @ '3:19'
+	}
 	/*book Acts
 	{
 		// nab split verses 10:48-49 = 10:48

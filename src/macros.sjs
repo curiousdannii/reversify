@@ -37,6 +37,9 @@ macro transformation
     rule { chapter_break $direction:str $translations:str (,) ... @ $break $count } => {
         gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ $direction, $break, $count ] );
     }
+    rule { chapter_split $direction:str $translations:str (,) ... @ $break } => {
+        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ $direction, $break, ] );
+    }
     rule { psalm_heading $translations:str (,) ... $count @ $chapters (,) ... } => {
         gen.maketransformation( 'psalm_heading', [ $translations (,) ... ], [ $count, [ $chapters (,) ... ] ] );
     }

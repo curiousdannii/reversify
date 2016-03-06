@@ -52,6 +52,35 @@ describe( 'reversify', function()
 		});
 	});
 
+	describe( 'should handle chapters which are split in two', function()
+	{
+		it( 'for single verses', function()
+		{
+			expect( bcv.parse( 'Joel 3:2 NAB' ).reversify( 'default' ) ).to.equal( 'Joel.2.29' );
+			expect( bcv.parse( 'Joel 2:29' ).reversify( 'NAB' ) ).to.equal( 'Joel.3.2' );
+			expect( bcv.parse( 'Joel 4:4 NAB' ).reversify( 'default' ) ).to.equal( 'Joel.3.4' );
+			expect( bcv.parse( 'Joel 3:4' ).reversify( 'NAB' ) ).to.equal( 'Joel.4.4' );
+			expect( bcv.parse( 'Mal 3:21 NAB' ).reversify( 'default' ) ).to.equal( 'Mal.4.3' );
+			expect( bcv.parse( 'Mal 4.3' ).reversify( 'NAB' ) ).to.equal( 'Mal.3.21' );
+		});
+
+		it( 'for contained ranges', function()
+		{
+			expect( bcv.parse( 'Joel 3:3-4:3 NAB' ).reversify( 'default' ) ).to.equal( 'Joel.2.30-Joel.3.3' );
+			expect( bcv.parse( 'Joel 2:30-3:3' ).reversify( 'NAB' ) ).to.equal( 'Joel.3.3-Joel.4.3' );
+			expect( bcv.parse( 'Mal 3:20-22 NAB' ).reversify( 'default' ) ).to.equal( 'Mal.4.2-Mal.4.4' );
+			expect( bcv.parse( 'Mal 4:2-4' ).reversify( 'NAB' ) ).to.equal( 'Mal.3.20-Mal.3.22' );
+		});
+
+		it( 'for ranges which are partially non-renumbered', function()
+		{
+			expect( bcv.parse( 'Joel 2:23-4:3 NAB' ).reversify( 'default' ) ).to.equal( 'Joel.2.23-Joel.3.3' );
+			expect( bcv.parse( 'Joel 2:23-3:3' ).reversify( 'NAB' ) ).to.equal( 'Joel.2.23-Joel.4.3' );
+			expect( bcv.parse( 'Mal 3:6-22 NAB' ).reversify( 'default' ) ).to.equal( 'Mal.3.6-Mal.4.4' );
+			expect( bcv.parse( 'Mal 3:6-4:4' ).reversify( 'NAB' ) ).to.equal( 'Mal.3.6-Mal.3.22' );
+		});
+	});
+
 	describe( 'should handle Psalm headings', function()
 	{
 		it( 'for single verses', function()

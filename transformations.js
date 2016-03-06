@@ -45,6 +45,41 @@ function do_chapter_break( opt )
 	do_one_ref( opt.entity.end );
 }
 
+// Split a chapter clean in two
+function do_chapter_split( opt )
+{
+	function do_one_ref( ref )
+	{
+		// Insert the break early
+		if ( opt.early )
+		{
+			if ( ref.c === opt.c && ref.v >= opt.v )
+			{
+				ref.c++;
+				ref.v -= opt.v - 1;
+			}
+			else if ( ref.c > opt.c )
+			{
+				ref.c++;
+			}
+		}
+		else
+		{
+			if ( ref.c > opt.c )
+			{
+				ref.c--;
+				if ( ref.c === opt.c )
+				{
+					ref.v += opt.v - 1;
+				}
+			}
+		}
+	}
+
+	do_one_ref( opt.entity.start );
+	do_one_ref( opt.entity.end );
+}
+
 // Handle Psalm headings which have been made their own verse
 function do_psalm_heading( opt )
 {
@@ -345,6 +380,17 @@ module.exports = function( entity, translation, to_default )
 			}
 		}
 	}
+	if ( book === 'Joel' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter split Joel 2:28
+			if ( start.c >= 2 || end.c >= 2 )
+			{
+				do_chapter_split({ early: to_default === false, entity: entity, c: 2, v: 28 });
+			}
+		}
+	}
 	if ( book === 'Jonah' )
 	{
 		if ( translation === 'nab' )
@@ -386,6 +432,17 @@ module.exports = function( entity, translation, to_default )
 			if ( start.c === 1 || start.c === 2 || end.c === 1 || end.c === 2 )
 			{
 				do_chapter_break({ early: to_default === false, entity: entity, c: 1, v: 18, count: 4 });
+			}
+		}
+	}
+	if ( book === 'Mal' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Chapter split Mal 3:19
+			if ( start.c >= 3 || end.c >= 3 )
+			{
+				do_chapter_split({ early: to_default === true, entity: entity, c: 3, v: 19 });
 			}
 		}
 	}

@@ -45,6 +45,41 @@ function do_chapter_break( opt )
 	do_one_ref( opt.entity.end );
 }
 
+// Split a chapter clean in two
+function do_chapter_split( opt )
+{
+	function do_one_ref( ref )
+	{
+		// Insert the break early
+		if ( opt.early )
+		{
+			if ( ref.c === opt.c && ref.v >= opt.v )
+			{
+				ref.c++;
+				ref.v -= opt.v - 1;
+			}
+			else if ( ref.c > opt.c )
+			{
+				ref.c++;
+			}
+		}
+		else
+		{
+			if ( ref.c > opt.c )
+			{
+				ref.c--;
+				if ( ref.c === opt.c )
+				{
+					ref.v += opt.v - 1;
+				}
+			}
+		}
+	}
+
+	do_one_ref( opt.entity.start );
+	do_one_ref( opt.entity.end );
+}
+
 // Handle Psalm headings which have been made their own verse
 function do_psalm_heading( opt )
 {
