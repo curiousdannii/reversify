@@ -43,12 +43,12 @@ module.exports.topntail = ( func ) => {
 
 	console.log( `module.exports = function( entity, translation, to_default )
 {
-	var chapters;` );
+	var start = entity.start, end = entity.end, book = start.b, chapters;` );
 
 	func();
 
 	console.log( `	// Handle deleted verses
-	if ( entity.start.c === entity.end.c && entity.start.v > entity.end.v )
+	if ( start.c === end.c && start.v > end.v )
 	{
 		return null;
 	}
@@ -59,7 +59,7 @@ module.exports.topntail = ( func ) => {
 module.exports.makebook = ( name, func ) => {
 	data.book = name;
 	data.trans_check = null;
-	console.log( `	if ( entity.start.b === '${ name }' )
+	console.log( `	if ( book === '${ name }' )
 	{` );
 	func();
 	console.log( `		}
@@ -88,7 +88,7 @@ var transforms = {
 			var dir_from = direction === 'from';
 			break_at = parse_ref( break_at );
 			return `// Chapter break ${ data.book } ${ break_at.label }
-			if ( entity.start.c === ${ break_at.c } || entity.start.c === ${ break_at.c + 1 } || entity.end.c === ${ break_at.c } || entity.end.c === ${ break_at.c + 1 } )
+			if ( start.c === ${ break_at.c } || start.c === ${ break_at.c + 1 } || end.c === ${ break_at.c } || end.c === ${ break_at.c + 1 } )
 			{
 				do_chapter_break({ early: to_default === ${ dir_from }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }, count: ${ count } });
 			}`;
@@ -100,7 +100,7 @@ var transforms = {
 
 			return `// Psalm heading ${ count } verse(s)
 			chapters = ${ JSON.stringify( chapters ) };
-			if ( chapters.indexOf( entity.start.c ) >= 0 || chapters.indexOf( entity.end.c ) >= 0 )
+			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )
 			{
 				do_psalm_heading({ to_default: to_default, entity: entity, count: ${ count } });
 			}`;
