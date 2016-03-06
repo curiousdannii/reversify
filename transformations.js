@@ -9,6 +9,13 @@ http://github.com/curiousdannii/reversify
 
 */
 
+// Convert the C and V numbers into characters with the format C:V-C:V
+function make_range_string( entity )
+{
+	return String.fromCharCode( entity.start.c, 58, entity.start.v, 45, entity.end.c, 58, entity.end.v );
+}
+
+// Insert an early chapter break
 function do_chapter_break( opt )
 {
 	function do_one_ref( ref )
@@ -44,11 +51,28 @@ function do_chapter_break( opt )
 	do_one_ref( opt.entity.end );
 }
 
+// Handle Psalm headings which have been made their own verse
+function do_psalm_heading( opt )
+{
+	if ( opt.to_default )
+	{
+		opt.entity.start.v -= opt.count;
+		if ( opt.entity.start.v < 1 )
+		{
+			opt.entity.start.v = 1;
+		}
+		opt.entity.end.v -= opt.count;
+	}
+	else
+	{
+		opt.entity.start.v += opt.count;
+		opt.entity.end.v += opt.count;
+	}
+}
+
 module.exports = function( entity, translation, to_default )
 {
-	// Convert the C and V numbers into characters with the format C:V-C:V
-	var entity_range = String.fromCharCode( entity.start.c, 58, entity.start.v, 45, entity.end.c, 58, entity.end.v );
-
+	var entity_range = make_range_string( entity );
 	if ( entity.start.b === 'Gen' )
 	{
 		if ( translation === 'nab' )
@@ -222,6 +246,24 @@ module.exports = function( entity, translation, to_default )
 			}
 		}
 	}
+	if ( entity.start.b === 'Ps' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Psalm heading 1 verse(s) @ 3, 4, 5, 6, 7, 8, 9, 12, 13, 18, 19, 20, 22, 30, 31, 34, 36, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 53, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 72, 75, 76, 77, 80, 81, 83, 84, 85, 88, 89, 92, 102, 108, 109, 140, 142
+			if ( /[\x03\x04\x05\x06\x07\b\t\f\r\x12\x13\x14\x16\x1E\x1F"\$&\'\(\)\*,-\.\/015789:;=>\?@ABCDEFHKLMPQSTUXY\\flm\x8C\x8E]:/.test( entity_range ) )
+			{
+				do_psalm_heading({ to_default: to_default, entity: entity, count: 1 });
+				entity_range = make_range_string( entity );
+			}
+			// Psalm heading 2 verse(s) @ 51, 52, 54, 60
+			if ( /[346<]:/.test( entity_range ) )
+			{
+				do_psalm_heading({ to_default: to_default, entity: entity, count: 2 });
+				entity_range = make_range_string( entity );
+			}
+		}
+	}
 	if ( entity.start.b === 'Eccl' )
 	{
 		if ( translation === 'nab' )
@@ -352,6 +394,11 @@ module.exports = function( entity, translation, to_default )
 				do_chapter_break({ early: to_default === false, entity: entity, c: 1, v: 18, count: 4 });
 			}
 		}
+	}
+	// Handle deleted verses
+	if ( entity.start.c === entity.end.c && entity.start.v > entity.end.v )
+	{
+		return null;
 	}
 	return entity;
 };

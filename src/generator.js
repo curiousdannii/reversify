@@ -41,9 +41,18 @@ function parse_ref( ref )
 module.exports.topntail = ( func ) => {
     console.log( fs.readFileSync( './src/header.js', 'utf8' ) );
 
+	console.log( `module.exports = function( entity, translation, to_default )
+{
+	var entity_range = make_range_string( entity );` );
+
 	func();
 
-	console.log( `	return entity;
+	console.log( `	// Handle deleted verses
+	if ( entity.start.c === entity.end.c && entity.start.v > entity.end.v )
+	{
+		return null;
+	}
+	return entity;
 };` );
 };
 
@@ -91,4 +100,16 @@ var transforms = {
 			}`;
         },
     },
+	psalm_heading: {
+		func: ( count, chapters ) => {
+			var chap_regex = regex( `[${ chapters.map( c => char( c ) ).join( '' ) }]:` );
+
+			return `// Psalm heading ${ count } verse(s) @ ${ chapters.join( ', ' ) }
+			if ( ${ chap_regex }.test( entity_range ) )
+			{
+				do_psalm_heading({ to_default: to_default, entity: entity, count: ${ count } });
+				entity_range = make_range_string( entity );
+			}`;
+		},
+	},
 };

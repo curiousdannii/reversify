@@ -49,12 +49,15 @@ function reversify( to_translation )
             {
                 entity = transformations( entity, to_translation, false );
             }
-
+            if ( !entity )
+            {
+                return '';
+            }
             var start_osis = entity.start.b + '.' + entity.start.c + '.' + entity.start.v;
             var end_osis = entity.start.b + '.' + entity.end.c + '.' + entity.end.v;
             return start_osis === end_osis ? start_osis : start_osis + '-' + end_osis;
         }).join( ',' )
     });
 
-    return entity_groups.join( ',' );
+    return entity_groups.join( ',' ).replace( /^,|,(?=,)|,$/g, '' );
 }

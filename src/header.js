@@ -9,6 +9,13 @@ http://github.com/curiousdannii/reversify
 
 */
 
+// Convert the C and V numbers into characters with the format C:V-C:V
+function make_range_string( entity )
+{
+	return String.fromCharCode( entity.start.c, 58, entity.start.v, 45, entity.end.c, 58, entity.end.v );
+}
+
+// Insert an early chapter break
 function do_chapter_break( opt )
 {
 	function do_one_ref( ref )
@@ -44,7 +51,21 @@ function do_chapter_break( opt )
 	do_one_ref( opt.entity.end );
 }
 
-module.exports = function( entity, translation, to_default )
+// Handle Psalm headings which have been made their own verse
+function do_psalm_heading( opt )
 {
-	// Convert the C and V numbers into characters with the format C:V-C:V
-	var entity_range = String.fromCharCode( entity.start.c, 58, entity.start.v, 45, entity.end.c, 58, entity.end.v );
+	if ( opt.to_default )
+	{
+		opt.entity.start.v -= opt.count;
+		if ( opt.entity.start.v < 1 )
+		{
+			opt.entity.start.v = 1;
+		}
+		opt.entity.end.v -= opt.count;
+	}
+	else
+	{
+		opt.entity.start.v += opt.count;
+		opt.entity.end.v += opt.count;
+	}
+}

@@ -51,4 +51,29 @@ describe( 'reversify', function()
 			expect( bcv.parse( 'Jonah 2:9-3:2' ).reversify( 'NAB' ) ).to.equal( 'Jonah.2.10-Jonah.3.2' );
 		});
 	});
+
+	describe( 'should handle Psalm headings', function()
+	{
+		it( 'for single verses', function()
+		{
+			expect( bcv.parse( 'Ps 3:5 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.3.4' );
+			expect( bcv.parse( 'Ps 3:4' ).reversify( 'NAB' ) ).to.equal( 'Ps.3.5' );
+			expect( bcv.parse( 'Ps 51:6 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.51.4' );
+			expect( bcv.parse( 'Ps 51:4' ).reversify( 'NAB' ) ).to.equal( 'Ps.51.6' );
+		});
+
+		it( 'for whole chapters', function()
+		{
+			expect( bcv.parse( 'Ps 3 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.3.1-Ps.3.8' );
+			expect( bcv.parse( 'Ps 3' ).reversify( 'NAB' ) ).to.equal( 'Ps.3.2-Ps.3.9' );
+			expect( bcv.parse( 'Ps 51 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.51.1-Ps.51.19' );
+			expect( bcv.parse( 'Ps 51' ).reversify( 'NAB' ) ).to.equal( 'Ps.51.3-Ps.51.21' );
+		});
+
+		it( 'and delete them if they are the only verse referenced', function()
+		{
+			expect( bcv.parse( 'Ps 3:1 NAB' ).reversify( 'default' ) ).to.equal( '' );
+			expect( bcv.parse( 'Ps 51:2, 51:1, 51:1-2 NAB' ).reversify( 'default' ) ).to.equal( '' );
+		});
+	});
 });
