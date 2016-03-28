@@ -32,19 +32,38 @@ macro book
 }
 export book;
 
-macro transformation
+macro chapter
 {
-    rule { chapter_break $direction:str $translations:str (,) ... @ $break $count } => {
-        gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ $direction, $break, $count ] );
+    rule { break from default to $translations:str (,) ... @ $break shifting $count $verses } => {
+        gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ 'to', $break, $count ] );
     }
-    rule { chapter_split $direction:str $translations:str (,) ... @ $break } => {
-        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ $direction, $break, ] );
+    rule { break from $translations:str (,) ... to default @ $break shifting $count $verses } => {
+        gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ 'from', $break, $count ] );
     }
-    rule { verse_split $direction:str $translations:str (,) ... @ $break } => {
-        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ $direction, $break, ] );
+    rule { split from default to $translations:str (,) ... @ $break } => {
+        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'to', $break, ] );
     }
-    rule { psalm_heading $translations:str (,) ... $count @ $chapters (,) ... } => {
+    rule { split from $translations:str (,) ... to default @ $break } => {
+        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'from', $break, ] );
+    }
+}
+export chapter;
+
+macro verse
+{
+    rule { split from default to $translations:str (,) ... @ $break } => {
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break, ] );
+    }
+    rule { split from $translations:str (,) ... to default @ $break } => {
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break, ] );
+    }
+}
+export verse;
+
+macro psalm
+{
+    rule { heading $translations:str (,) ... $count $verses @ $chapters (,) ... } => {
         gen.maketransformation( 'psalm_heading', [ $translations (,) ... ], [ $count, [ $chapters (,) ... ] ] );
     }
 }
-export transformation;
+export psalm;
