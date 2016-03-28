@@ -80,6 +80,36 @@ function do_chapter_split( opt )
 	do_one_ref( opt.entity.end );
 }
 
+// Split a verse in two
+function do_verse_split( opt )
+{
+	// Insert the break
+	var entity = opt.entity;
+	if ( opt.split )
+	{
+		if ( entity.start.c === opt.c && entity.start.v > opt.v )
+		{
+			entity.start.v++;
+		}
+		if ( entity.end.c === opt.c && entity.end.v >= opt.v )
+		{
+			entity.end.v++;
+		}
+	}
+	// Join them back together
+	else
+	{
+		if ( entity.start.c === opt.c && entity.start.v >= opt.v + 1 )
+		{
+			entity.start.v--;
+		}
+		if ( entity.end.c === opt.c && entity.end.v >= opt.v + 1 )
+		{
+			entity.end.v--;
+		}
+	}
+}
+
 // Handle Psalm headings which have been made their own verse
 function do_psalm_heading( opt )
 {
@@ -208,6 +238,11 @@ module.exports = function( entity, translation, to_default )
 			{
 				do_chapter_break({ early: to_default === false, entity: entity, c: 4, v: 21, count: 14 });
 			}
+			// Verse split 1Kgs 22:43
+			if ( start.c === 22 || end.c === 22 )
+			{
+				do_verse_split({ split: to_default === false, entity: entity, c: 22, v: 43 });
+			}
 		}
 	}
 	if ( book === '2Kgs' )
@@ -229,6 +264,11 @@ module.exports = function( entity, translation, to_default )
 			if ( start.c === 5 || start.c === 6 || end.c === 5 || end.c === 6 )
 			{
 				do_chapter_break({ early: to_default === true, entity: entity, c: 5, v: 27, count: 15 });
+			}
+			// Verse split 1Chr 12:4
+			if ( start.c === 12 || end.c === 12 )
+			{
+				do_verse_split({ split: to_default === false, entity: entity, c: 12, v: 4 });
 			}
 		}
 	}
@@ -256,6 +296,11 @@ module.exports = function( entity, translation, to_default )
 			if ( start.c === 3 || start.c === 4 || end.c === 3 || end.c === 4 )
 			{
 				do_chapter_break({ early: to_default === true, entity: entity, c: 3, v: 33, count: 6 });
+			}
+			// Verse split Neh 7:67
+			if ( start.c === 7 || end.c === 7 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 7, v: 67 });
 			}
 			// Chapter break Neh 9:38
 			if ( start.c === 9 || start.c === 10 || end.c === 9 || end.c === 10 )
@@ -290,6 +335,11 @@ module.exports = function( entity, translation, to_default )
 			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )
 			{
 				do_psalm_heading({ to_default: to_default, entity: entity, count: 2 });
+			}
+			// Verse split Ps 2:11
+			if ( start.c === 2 || end.c === 2 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 2, v: 11 });
 			}
 		}
 	}
@@ -443,6 +493,55 @@ module.exports = function( entity, translation, to_default )
 			if ( start.c >= 3 || end.c >= 3 )
 			{
 				do_chapter_split({ early: to_default === true, entity: entity, c: 3, v: 19 });
+			}
+		}
+	}
+	if ( book === 'Acts' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Verse split Acts 10:48
+			if ( start.c === 10 || end.c === 10 )
+			{
+				do_verse_split({ split: to_default === false, entity: entity, c: 10, v: 48 });
+			}
+			// Verse split Acts 19:40
+			if ( start.c === 19 || end.c === 19 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 19, v: 40 });
+			}
+		}
+	}
+	if ( book === '2Cor' )
+	{
+		if ( ["ceb","nab","nrsv"].indexOf( translation ) > -1 )
+		{
+			// Verse split 2Cor 13:12
+			if ( start.c === 13 || end.c === 13 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 13, v: 12 });
+			}
+		}
+	}
+	if ( book === '3John' )
+	{
+		if ( translation === 'kjv' )
+		{
+			// Verse split 3John 1:14
+			if ( start.c === 1 || end.c === 1 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 1, v: 14 });
+			}
+		}
+	}
+	if ( book === 'Rev' )
+	{
+		if ( ["ceb","nab","nlt","nrsv"].indexOf( translation ) > -1 )
+		{
+			// Verse split Rev 12:17
+			if ( start.c === 12 || end.c === 12 )
+			{
+				do_verse_split({ split: to_default === false, entity: entity, c: 12, v: 17 });
 			}
 		}
 	}

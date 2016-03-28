@@ -80,6 +80,36 @@ function do_chapter_split( opt )
 	do_one_ref( opt.entity.end );
 }
 
+// Split a verse in two
+function do_verse_split( opt )
+{
+	// Insert the break
+	var entity = opt.entity;
+	if ( opt.split )
+	{
+		if ( entity.start.c === opt.c && entity.start.v > opt.v )
+		{
+			entity.start.v++;
+		}
+		if ( entity.end.c === opt.c && entity.end.v >= opt.v )
+		{
+			entity.end.v++;
+		}
+	}
+	// Join them back together
+	else
+	{
+		if ( entity.start.c === opt.c && entity.start.v >= opt.v + 1 )
+		{
+			entity.start.v--;
+		}
+		if ( entity.end.c === opt.c && entity.end.v >= opt.v + 1 )
+		{
+			entity.end.v--;
+		}
+	}
+}
+
 // Handle Psalm headings which have been made their own verse
 function do_psalm_heading( opt )
 {

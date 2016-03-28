@@ -81,6 +81,43 @@ describe( 'reversify', function()
 		});
 	});
 
+	describe( 'should handle verses which are split in two', function()
+	{
+		it( 'for single verses', function()
+		{
+			expect( bcv.parse( 'Acts 10:48 NAB' ).reversify( 'default' ) ).to.equal( 'Acts.10.48' );
+			expect( bcv.parse( 'Acts 10:49 NAB' ).reversify( 'default' ) ).to.equal( 'Acts.10.48' );
+			expect( bcv.parse( 'Acts 10:48' ).reversify( 'NAB' ) ).to.equal( 'Acts.10.48-Acts.10.49' );
+			expect( bcv.parse( 'Acts 19:40 NAB' ).reversify( 'default' ) ).to.equal( 'Acts.19.40-Acts.19.41' );
+			expect( bcv.parse( 'Acts 19.40' ).reversify( 'NAB' ) ).to.equal( 'Acts.19.40' );
+			expect( bcv.parse( 'Acts 19.41' ).reversify( 'NAB' ) ).to.equal( 'Acts.19.40' );
+		});
+
+		it( 'for overlapping ranges', function()
+		{
+			expect( bcv.parse( '2 Cor 13:11-12 NAB' ).reversify( 'default' ) ).to.equal( '2Cor.13.11-2Cor.13.13' );
+			expect( bcv.parse( '2 Cor 13:11-12' ).reversify( 'NAB' ) ).to.equal( '2Cor.13.11-2Cor.13.12' );
+			expect( bcv.parse( '2 Cor 13:11-13' ).reversify( 'NAB' ) ).to.equal( '2Cor.13.11-2Cor.13.12' );
+			expect( bcv.parse( '2 Cor 13:12-13 NAB' ).reversify( 'default' ) ).to.equal( '2Cor.13.12-2Cor.13.14' );
+			expect( bcv.parse( '2 Cor 13:12-14' ).reversify( 'NAB' ) ).to.equal( '2Cor.13.12-2Cor.13.13' );
+			expect( bcv.parse( '2 Cor 13:13-14' ).reversify( 'NAB' ) ).to.equal( '2Cor.13.12-2Cor.13.13' );
+			expect( bcv.parse( '1 Kings 22:42-43 NAB' ).reversify( 'default' ) ).to.equal( '1Kgs.22.42-1Kgs.22.43' );
+			expect( bcv.parse( '1 Kings 22:42-44 NAB' ).reversify( 'default' ) ).to.equal( '1Kgs.22.42-1Kgs.22.43' );
+			expect( bcv.parse( '1 Kings 22:42-43' ).reversify( 'NAB' ) ).to.equal( '1Kgs.22.42-1Kgs.22.44' );
+			expect( bcv.parse( '1 Kings 22:43-45 NAB' ).reversify( 'default' ) ).to.equal( '1Kgs.22.43-1Kgs.22.44' );
+			expect( bcv.parse( '1 Kings 22:44-45 NAB' ).reversify( 'default' ) ).to.equal( '1Kgs.22.43-1Kgs.22.44' );
+			expect( bcv.parse( '1 Kings 22:43-44' ).reversify( 'NAB' ) ).to.equal( '1Kgs.22.43-1Kgs.22.45' );
+		});
+
+		it( 'for other affected verses', function()
+		{
+			expect( bcv.parse( '2 Cor 13:13 NAB' ).reversify( 'default' ) ).to.equal( '2Cor.13.14' );
+			expect( bcv.parse( '2 Cor 13:14' ).reversify( 'NAB' ) ).to.equal( '2Cor.13.13' );
+			expect( bcv.parse( '1 Kings 22:52 NAB' ).reversify( 'default' ) ).to.equal( '1Kgs.22.51' );
+			expect( bcv.parse( '1 Kings 22:51' ).reversify( 'NAB' ) ).to.equal( '1Kgs.22.52' );
+		});
+	});
+
 	describe( 'should handle Psalm headings', function()
 	{
 		it( 'for single verses', function()
