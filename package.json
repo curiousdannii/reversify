@@ -1,6 +1,6 @@
 {
   "name": "reversify",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "author": "Dannii Willis <curiousdannii@gmail.com>",
   "description": "A plugin for bible-passage-reference-parser to change versification systems",

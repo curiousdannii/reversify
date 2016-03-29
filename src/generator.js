@@ -105,6 +105,16 @@ var transforms = {
 			}`;
         },
     },
+    verse_split_across_chapters: {
+        func: ( direction, break_at ) => {
+			break_at = parse_ref( break_at );
+			return `// Verse split across a chapter break ${ data.book } ${ break_at.label }
+			if ( start.c === ${ break_at.c } || start.c === ${ break_at.c + 1 } || end.c === ${ break_at.c } || end.c === ${ break_at.c + 1 } )
+			{
+				do_verse_split_across_chapters({ split: to_default === ${ direction === 'from' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v } });
+			}`;
+        },
+    },
 	psalm_heading: {
 		func: ( count, chapters ) => {
 			return `// Psalm heading ${ count } verse(s)

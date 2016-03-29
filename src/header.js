@@ -83,32 +83,69 @@ function do_chapter_split( opt )
 // Split a verse in two
 function do_verse_split( opt )
 {
-	// Insert the break
-	var entity = opt.entity;
+	function do_one_ref( ref, verse_test )
+	{
+		// Split the verse
+		if ( opt.split )
+		{
+			if ( ref.c === opt.c && verse_test )
+			{
+				ref.v++;
+			}
+		}
+		// Join them back together
+		else
+		{
+			if ( ref.c === opt.c && ref.v >= opt.v + 1 )
+			{
+				ref.v--;
+			}
+		}
+	}
+
 	if ( opt.split )
 	{
 		opt.v -= opt.psalm_heading || 0;
-		if ( entity.start.c === opt.c && entity.start.v > opt.v )
-		{
-			entity.start.v++;
-		}
-		if ( entity.end.c === opt.c && entity.end.v >= opt.v )
-		{
-			entity.end.v++;
-		}
 	}
-	// Join them back together
-	else
+	do_one_ref( opt.entity.start, opt.entity.start.v > opt.v );
+	do_one_ref( opt.entity.end, opt.entity.end.v >= opt.v );
+}
+
+// Split a verse in two across a chapter break
+function do_verse_split_across_chapters( opt )
+{
+	function do_one_ref( ref, verse_test )
 	{
-		if ( entity.start.c === opt.c && entity.start.v >= opt.v + 1 )
+		// Split the verse
+		if ( opt.split )
 		{
-			entity.start.v--;
+			if ( ref.c === opt.c && verse_test )
+			{
+				ref.c++;
+				ref.v = 1;
+			}
+			else if ( ref.c === opt.c + 1 )
+			{
+				ref.v++;
+			}
 		}
-		if ( entity.end.c === opt.c && entity.end.v >= opt.v + 1 )
+		// Join them back together
+		else
 		{
-			entity.end.v--;
+			if ( ref.c === opt.c + 1 && ref.v === 1 )
+			{
+				ref.c = opt.c;
+				ref.v = opt.v;
+			}
+			if ( ref.c === opt.c + 1 )
+			{
+				ref.v--;
+			}
 		}
 	}
+
+	do_one_ref( opt.entity.start, opt.entity.start.v > opt.v );
+	do_one_ref( opt.entity.end, opt.entity.end.v >= opt.v );
 }
 
 // Handle Psalm headings which have been made their own verse

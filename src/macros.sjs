@@ -60,6 +60,12 @@ macro verse
     rule { split from $translations:str (,) ... to default @ $break } => {
         gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break ] );
     }
+    rule { split across chapters from default to $translations:str (,) ... @ $break } => {
+        gen.maketransformation( 'verse_split_across_chapters', [ $translations (,) ... ], [ 'to', $break ] );
+    }
+    rule { split across chapters from $translations:str (,) ... to default @ $break } => {
+        gen.maketransformation( 'verse_split_across_chapters', [ $translations (,) ... ], [ 'from', $break ] );
+    }
 }
 export verse;
 

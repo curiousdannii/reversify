@@ -83,32 +83,69 @@ function do_chapter_split( opt )
 // Split a verse in two
 function do_verse_split( opt )
 {
-	// Insert the break
-	var entity = opt.entity;
+	function do_one_ref( ref, verse_test )
+	{
+		// Split the verse
+		if ( opt.split )
+		{
+			if ( ref.c === opt.c && verse_test )
+			{
+				ref.v++;
+			}
+		}
+		// Join them back together
+		else
+		{
+			if ( ref.c === opt.c && ref.v >= opt.v + 1 )
+			{
+				ref.v--;
+			}
+		}
+	}
+
 	if ( opt.split )
 	{
 		opt.v -= opt.psalm_heading || 0;
-		if ( entity.start.c === opt.c && entity.start.v > opt.v )
-		{
-			entity.start.v++;
-		}
-		if ( entity.end.c === opt.c && entity.end.v >= opt.v )
-		{
-			entity.end.v++;
-		}
 	}
-	// Join them back together
-	else
+	do_one_ref( opt.entity.start, opt.entity.start.v > opt.v );
+	do_one_ref( opt.entity.end, opt.entity.end.v >= opt.v );
+}
+
+// Split a verse in two across a chapter break
+function do_verse_split_across_chapters( opt )
+{
+	function do_one_ref( ref, verse_test )
 	{
-		if ( entity.start.c === opt.c && entity.start.v >= opt.v + 1 )
+		// Split the verse
+		if ( opt.split )
 		{
-			entity.start.v--;
+			if ( ref.c === opt.c && verse_test )
+			{
+				ref.c++;
+				ref.v = 1;
+			}
+			else if ( ref.c === opt.c + 1 )
+			{
+				ref.v++;
+			}
 		}
-		if ( entity.end.c === opt.c && entity.end.v >= opt.v + 1 )
+		// Join them back together
+		else
 		{
-			entity.end.v--;
+			if ( ref.c === opt.c + 1 && ref.v === 1 )
+			{
+				ref.c = opt.c;
+				ref.v = opt.v;
+			}
+			if ( ref.c === opt.c + 1 )
+			{
+				ref.v--;
+			}
 		}
 	}
+
+	do_one_ref( opt.entity.start, opt.entity.start.v > opt.v );
+	do_one_ref( opt.entity.end, opt.entity.end.v >= opt.v );
 }
 
 // Handle Psalm headings which have been made their own verse
@@ -212,6 +249,11 @@ module.exports = function( entity, translation, to_default )
 	{
 		if ( translation === 'nab' )
 		{
+			// Verse split across a chapter break 1Sam 20:42
+			if ( start.c === 20 || start.c === 21 || end.c === 20 || end.c === 21 )
+			{
+				do_verse_split_across_chapters({ split: to_default === false, entity: entity, c: 20, v: 42 });
+			}
 			// Chapter break 1Sam 23:29
 			if ( start.c === 23 || start.c === 24 || end.c === 23 || end.c === 24 )
 			{
@@ -386,14 +428,19 @@ module.exports = function( entity, translation, to_default )
 			}
 		}
 	}
-	if ( book === 'Is' )
+	if ( book === 'Isa' )
 	{
 		if ( translation === 'nab' )
 		{
-			// Chapter break Is 8:23
+			// Chapter break Isa 8:23
 			if ( start.c === 8 || start.c === 9 || end.c === 8 || end.c === 9 )
 			{
 				do_chapter_break({ early: to_default === true, entity: entity, c: 8, v: 23, count: 1 });
+			}
+			// Verse split across a chapter break Isa 63:19
+			if ( start.c === 63 || start.c === 64 || end.c === 63 || end.c === 64 )
+			{
+				do_verse_split_across_chapters({ split: to_default === true, entity: entity, c: 63, v: 19 });
 			}
 		}
 	}

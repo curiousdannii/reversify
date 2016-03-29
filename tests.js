@@ -118,6 +118,43 @@ describe( 'reversify', function()
 		});
 	});
 
+	describe( 'should handle verses which are split in two across chapter breaks', function()
+	{
+		it( 'for single verses', function()
+		{
+			expect( bcv.parse( '1 Samuel 20:42 NAB' ).reversify( 'default' ) ).to.equal( '1Sam.20.42' );
+			expect( bcv.parse( '1 Samuel 21:1 NAB' ).reversify( 'default' ) ).to.equal( '1Sam.20.42' );
+			expect( bcv.parse( '1 Samuel 20:42' ).reversify( 'NAB' ) ).to.equal( '1Sam.20.42-1Sam.21.1' );
+			expect( bcv.parse( 'Isaiah 63:19 NAB' ).reversify( 'default' ) ).to.equal( 'Isa.63.19-Isa.64.1' );
+			expect( bcv.parse( 'Isaiah 63:19' ).reversify( 'NAB' ) ).to.equal( 'Isa.63.19' );
+			expect( bcv.parse( 'Isaiah 64:1' ).reversify( 'NAB' ) ).to.equal( 'Isa.63.19' );
+		});
+
+		it( 'for overlapping ranges', function()
+		{
+			expect( bcv.parse( '1 Samuel 20:41-42 NAB' ).reversify( 'default' ) ).to.equal( '1Sam.20.41-1Sam.20.42' );
+			expect( bcv.parse( '1 Samuel 20:41-21:1 NAB' ).reversify( 'default' ) ).to.equal( '1Sam.20.41-1Sam.20.42' );
+			expect( bcv.parse( '1 Samuel 20:42-21:2 NAB' ).reversify( 'default' ) ).to.equal( '1Sam.20.42-1Sam.21.1' );
+			expect( bcv.parse( '1 Samuel 21:1-2 NAB' ).reversify( 'default' ) ).to.equal( '1Sam.20.42-1Sam.21.1' );
+			expect( bcv.parse( '1 Samuel 20:41-42' ).reversify( 'NAB' ) ).to.equal( '1Sam.20.41-1Sam.21.1' );
+			expect( bcv.parse( '1 Samuel 20:42-21:1' ).reversify( 'NAB' ) ).to.equal( '1Sam.20.42-1Sam.21.2' );
+			expect( bcv.parse( 'Isaiah 63:18-19 NAB' ).reversify( 'default' ) ).to.equal( 'Isa.63.18-Isa.64.1' );
+			expect( bcv.parse( 'Isaiah 63:19-64:1 NAB' ).reversify( 'default' ) ).to.equal( 'Isa.63.19-Isa.64.2' );
+			expect( bcv.parse( 'Isaiah 63:18-19' ).reversify( 'NAB' ) ).to.equal( 'Isa.63.18-Isa.63.19' );
+			expect( bcv.parse( 'Isaiah 63:18-64:1' ).reversify( 'NAB' ) ).to.equal( 'Isa.63.18-Isa.63.19' );
+			expect( bcv.parse( 'Isaiah 63:19-64:2' ).reversify( 'NAB' ) ).to.equal( 'Isa.63.19-Isa.64.1' );
+			expect( bcv.parse( 'Isaiah 64:1-2' ).reversify( 'NAB' ) ).to.equal( 'Isa.63.19-Isa.64.1' );
+		});
+
+		it( 'for other affected verses', function()
+		{
+			expect( bcv.parse( '1 Samuel 21:5 NAB' ).reversify( 'default' ) ).to.equal( '1Sam.21.4' );
+			expect( bcv.parse( '1 Samuel 21:4' ).reversify( 'NAB' ) ).to.equal( '1Sam.21.5' );
+			expect( bcv.parse( 'Isaiah 64:5 NAB' ).reversify( 'default' ) ).to.equal( 'Isa.64.6' );
+			expect( bcv.parse( 'Isaiah 64:6' ).reversify( 'NAB' ) ).to.equal( 'Isa.64.5' );
+		});
+	});
+
 	describe( 'should handle Psalm headings', function()
 	{
 		it( 'for single verses', function()

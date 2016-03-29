@@ -27,7 +27,7 @@ data
 	book Num
 	{
 		chapter break from default to nab @ '16:36' shifting 15 verses
-		// nab split verses 25:19-26:1 = 26:1
+		// nab split verses 25:19-26:1 = 26:1 -> not worth handling at this time
 		chapter break from default to nab @ '29:40' shifting 1 verse
 	}
 	book Deut
@@ -38,7 +38,7 @@ data
 	}
 	book '1Sam'
 	{
-		// nab split verses 20:42-21:1 = 20:42
+		verse split across chapters from default to nab @ '20:42'
 		chapter break from default to nab @ '23:29' shifting 1 verse
 	}
 	book '2Sam'
@@ -93,10 +93,10 @@ data
 	{
 		chapter break from default to nab @ '6:13' shifting 1 verse
 	}
-	book Is
+	book Isa
 	{
 		chapter break from nab to default @ '8:23' shifting 1 verse
-		// nab split verses 63:19 = 63:19-64:1
+		verse split across chapters from nab to default @ '63:19'
 	}
 	book Jer
 	{
