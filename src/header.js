@@ -87,6 +87,7 @@ function do_verse_split( opt )
 	var entity = opt.entity;
 	if ( opt.split )
 	{
+		opt.v -= opt.psalm_heading || 0;
 		if ( entity.start.c === opt.c && entity.start.v > opt.v )
 		{
 			entity.start.v++;

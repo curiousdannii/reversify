@@ -15,10 +15,8 @@
   "devDependencies": {
     "bible-passage-reference-parser": "^1.0.0",
     "chai": "^3.5.0",
-    "jsesc": "^1.0.0",
-    "lodash": "^4.6.1",
     "mocha": "^2.4.5",
-    "sweet.js": "^0.7.7"
+    "sweet.js": "^0.7.8"
   },
   "peerDependencies": {
     "bible-passage-reference-parser": "^1.0.0"

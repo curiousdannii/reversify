@@ -41,10 +41,10 @@ macro chapter
         gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ 'from', $break, $count ] );
     }
     rule { split from default to $translations:str (,) ... @ $break } => {
-        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'to', $break, ] );
+        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'to', $break ] );
     }
     rule { split from $translations:str (,) ... to default @ $break } => {
-        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'from', $break, ] );
+        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'from', $break ] );
     }
 }
 export chapter;
@@ -52,10 +52,13 @@ export chapter;
 macro verse
 {
     rule { split from default to $translations:str (,) ... @ $break } => {
-        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break, ] );
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break ] );
+    }
+    rule { split from $translations:str (,) ... to default @ $break after a psalm heading } => {
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break, true ] );
     }
     rule { split from $translations:str (,) ... to default @ $break } => {
-        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break, ] );
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break ] );
     }
 }
 export verse;

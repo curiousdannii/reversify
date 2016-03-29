@@ -9,15 +9,7 @@ http://github.com/curiousdannii/reversify
 
 */
 
-var _ = require( 'lodash' );
 var fs = require( 'fs' );
-var jsesc = require( 'jsesc' );
-
-// Escape non-ASCII and RegExp special characters
-function char( code )
-{
-	return _.escapeRegExp( jsesc( String.fromCharCode( code ) ) ).replace( /\\\\/g, '\\' );
-}
 
 var data = {};
 
@@ -68,7 +60,7 @@ module.exports.makebook = ( name, func ) => {
 
 module.exports.maketransformation = ( type, translations, args ) =>
 {
-    var trans_check = translations.length > 1 ? `${ JSON.stringify( translations ) }.indexOf( translation ) > -1` : `translation === '${ translations[0] }'`;
+	var trans_check = translations.map( trans => `translation === '${ trans }'` ).join( ' || ' );
 	if ( data.trans_check !== trans_check )
 	{
 		if ( data.trans_check != null )
@@ -104,19 +96,17 @@ var transforms = {
         },
     },
     verse_split: {
-        func: ( direction, break_at ) => {
+        func: ( direction, break_at, psalm_heading ) => {
 			break_at = parse_ref( break_at );
 			return `// Verse split ${ data.book } ${ break_at.label }
 			if ( start.c === ${ break_at.c } || end.c === ${ break_at.c } )
 			{
-				do_verse_split({ split: to_default === ${ direction === 'from' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v } });
+				do_verse_split({ split: to_default === ${ direction === 'from' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }${ psalm_heading ? ', psalm_heading: 1' : '' } });
 			}`;
         },
     },
 	psalm_heading: {
 		func: ( count, chapters ) => {
-			var chap_regex = regex( `[${ chapters.map( c => char( c ) ).join( '' ) }]:` );
-
 			return `// Psalm heading ${ count } verse(s)
 			chapters = ${ JSON.stringify( chapters ) };
 			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )

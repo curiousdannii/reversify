@@ -141,5 +141,20 @@ describe( 'reversify', function()
 			expect( bcv.parse( 'Ps 3:1 NAB' ).reversify( 'default' ) ).to.equal( '' );
 			expect( bcv.parse( 'Ps 51:2, 51:1, 51:1-2 NAB' ).reversify( 'default' ) ).to.equal( '' );
 		});
+
+		it( 'and split verses within the same chapter', function()
+		{
+			expect( bcv.parse( 'Ps 13 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.13.1-Ps.13.6' );
+			expect( bcv.parse( 'Ps 13' ).reversify( 'NAB' ) ).to.equal( 'Ps.13.2-Ps.13.6' );
+			expect( bcv.parse( 'Ps 13:5 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.13.4' );
+			expect( bcv.parse( 'Ps 13:6 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.13.5-Ps.13.6' );
+			expect( bcv.parse( 'Ps 13:5' ).reversify( 'NAB' ) ).to.equal( 'Ps.13.6' );
+			expect( bcv.parse( 'Ps 13:6' ).reversify( 'NAB' ) ).to.equal( 'Ps.13.6' );
+			expect( bcv.parse( 'Ps 66 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.66.1-Ps.66.20' );
+			expect( bcv.parse( 'Ps 66' ).reversify( 'NAB' ) ).to.equal( 'Ps.66.2-Ps.66.20' );
+			expect( bcv.parse( 'Ps 66:2 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.66.1-Ps.66.2' );
+			expect( bcv.parse( 'Ps 66:1' ).reversify( 'NAB' ) ).to.equal( 'Ps.66.2' );
+			expect( bcv.parse( 'Ps 66:2' ).reversify( 'NAB' ) ).to.equal( 'Ps.66.2' );
+		});
 	});
 });

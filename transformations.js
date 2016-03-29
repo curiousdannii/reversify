@@ -87,6 +87,7 @@ function do_verse_split( opt )
 	var entity = opt.entity;
 	if ( opt.split )
 	{
+		opt.v -= opt.psalm_heading || 0;
 		if ( entity.start.c === opt.c && entity.start.v > opt.v )
 		{
 			entity.start.v++;
@@ -341,6 +342,26 @@ module.exports = function( entity, translation, to_default )
 			{
 				do_verse_split({ split: to_default === true, entity: entity, c: 2, v: 11 });
 			}
+			// Verse split Ps 13:6
+			if ( start.c === 13 || end.c === 13 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 13, v: 6, psalm_heading: 1 });
+			}
+			// Verse split Ps 66:2
+			if ( start.c === 66 || end.c === 66 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 66, v: 2, psalm_heading: 1 });
+			}
+			// Verse split Ps 72:2
+			if ( start.c === 72 || end.c === 72 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 72, v: 2, psalm_heading: 1 });
+			}
+			// Verse split Ps 109:2
+			if ( start.c === 109 || end.c === 109 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 109, v: 2, psalm_heading: 1 });
+			}
 		}
 	}
 	if ( book === 'Eccl' )
@@ -514,7 +535,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '2Cor' )
 	{
-		if ( ["ceb","nab","nrsv"].indexOf( translation ) > -1 )
+		if ( translation === 'ceb' || translation === 'nab' || translation === 'nrsv' )
 		{
 			// Verse split 2Cor 13:12
 			if ( start.c === 13 || end.c === 13 )
@@ -536,12 +557,53 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Rev' )
 	{
-		if ( ["ceb","nab","nlt","nrsv"].indexOf( translation ) > -1 )
+		if ( translation === 'ceb' || translation === 'nab' || translation === 'nlt' || translation === 'nrsv' )
 		{
 			// Verse split Rev 12:17
 			if ( start.c === 12 || end.c === 12 )
 			{
 				do_verse_split({ split: to_default === false, entity: entity, c: 12, v: 17 });
+			}
+		}
+	}
+	if ( book === 'Tobit' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Verse split Tobit 7:16
+			if ( start.c === 7 || end.c === 7 )
+			{
+				do_verse_split({ split: to_default === false, entity: entity, c: 7, v: 16 });
+			}
+		}
+		if ( translation === 'ceb' || translation === 'nab' )
+		{
+			// Verse split Tobit 13:16
+			if ( start.c === 13 || end.c === 13 )
+			{
+				do_verse_split({ split: to_default === false, entity: entity, c: 13, v: 16 });
+			}
+		}
+	}
+	if ( book === 'PrAzar' )
+	{
+		if ( translation === 'ceb' )
+		{
+			// Verse split PrAzar 1:29
+			if ( start.c === 1 || end.c === 1 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 1, v: 29 });
+			}
+		}
+	}
+	if ( book === '2Macc' )
+	{
+		if ( translation === 'nab' )
+		{
+			// Verse split 2Macc 12:45
+			if ( start.c === 12 || end.c === 12 )
+			{
+				do_verse_split({ split: to_default === false, entity: entity, c: 12, v: 45 });
 			}
 		}
 	}
