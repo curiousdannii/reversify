@@ -13,66 +13,66 @@ data
 {
 	book Gen
 	{
-		chapter break from default to nab @ '31:55' shifting 1 verse
+		chapter break from default to nab @ '31:55'
 	}
 	book Exod
 	{
-		chapter break from nab to default @ '7:26' shifting 4 verses
-		chapter break from nab to default @ '21:37' shifting 1 verse
+		chapter break from nab to default @ '7:26'
+		chapter break from nab to default @ '21:37'
 	}
 	book Lev
 	{
-		chapter break from nab to default @ '5:20' shifting 7 verses
+		chapter break from nab to default @ '5:20'
 	}
 	book Num
 	{
-		chapter break from default to nab @ '16:36' shifting 15 verses
+		chapter break from default to nab @ '16:36'
 		// nab split verses 25:19-26:1 = 26:1 -> not worth handling at this time
-		chapter break from default to nab @ '29:40' shifting 1 verse
+		chapter break from default to nab @ '29:40'
 	}
 	book Deut
 	{
-		chapter break from default to nab @ '12:32' shifting 1 verse
-		chapter break from default to nab @ '22:30' shifting 1 verse
-		chapter break from nab to default @ '28:69' shifting 1 verse
+		chapter break from default to nab @ '12:32'
+		chapter break from default to nab @ '22:30'
+		chapter break from nab to default @ '28:69'
 	}
 	book '1Sam'
 	{
 		verse split across chapters from default to nab @ '20:42'
-		chapter break from default to nab @ '23:29' shifting 1 verse
+		chapter break from default to nab @ '23:29'
 	}
 	book '2Sam'
 	{
-		chapter break from default to nab @ '18:33' shifting 1 verse
+		chapter break from default to nab @ '18:33'
 	}
 	book '1Kgs'
 	{
-		chapter break from default to nab @ '4:21' shifting 14 verses
+		chapter break from default to nab @ '4:21'
 		verse split from default to nab @ '22:43'
 	}
 	book '2Kgs'
 	{
-		chapter break from default to nab @ '11:21' shifting 1 verse
+		chapter break from default to nab @ '11:21'
 	}
 	book '1Chr'
 	{
-		chapter break from nab to default @ '5:27' shifting 15 verses
+		chapter break from nab to default @ '5:27'
 		verse split from default to nab @ '12:4'
 	}
 	book '2Chr'
 	{
-		chapter break from nab to default @ '1:18' shifting 1 verse
-		chapter break from nab to default @ '13:23' shifting 1 verse
+		chapter break from nab to default @ '1:18'
+		chapter break from nab to default @ '13:23'
 	}
 	book Neh
 	{
-		chapter break from nab to default @ '3:33' shifting 6 verses
+		chapter break from nab to default @ '3:33'
 		verse split from nab to default @ '7:67'
-		chapter break from default to nab @ '9:38' shifting 1 verse
+		chapter break from default to nab @ '9:38'
 	}
 	book Job
 	{
-		chapter break from nab to default @ '40:25' shifting 8 verses
+		chapter break from nab to default @ '40:25'
 	}
 	book Ps
 	{
@@ -87,37 +87,37 @@ data
 	}
 	book Eccl
 	{
-		chapter break from nab to default @ '4:17' shifting 1 verse
+		chapter break from nab to default @ '4:17'
 	}
 	book Song
 	{
-		chapter break from default to nab @ '6:13' shifting 1 verse
+		chapter break from default to nab @ '6:13'
 	}
 	book Isa
 	{
-		chapter break from nab to default @ '8:23' shifting 1 verse
+		chapter break from nab to default @ '8:23'
 		verse split across chapters from nab to default @ '63:19'
 	}
 	book Jer
 	{
-		chapter break from nab to default @ '8:23' shifting 1 verse
+		chapter break from nab to default @ '8:23'
 	}
 	book Ezek
 	{
-		chapter break from default to nab @ '20:45' shifting 5 verses
+		chapter break from default to nab @ '20:45'
 	}
 	book Dan
 	{
 		// nab ch 3 PrAzar
 		// nab ch 3-4 chap break
-		chapter break from default to nab @ '5:31' shifting 1 verse
+		chapter break from default to nab @ '5:31'
 		// nab end of book
 	}
 	book Hos
 	{
-		chapter break from default to nab @ '1:10' shifting 2 verses
-		chapter break from default to nab @ '11:12' shifting 1 verse
-		chapter break from default to nab @ '13:16' shifting 1 verse
+		chapter break from default to nab @ '1:10'
+		chapter break from default to nab @ '11:12'
+		chapter break from default to nab @ '13:16'
 	}
 	book Joel
 	{
@@ -125,19 +125,19 @@ data
 	}
 	book Jonah
 	{
-		chapter break from default to nab @ '1:17' shifting 1 verse
+		chapter break from default to nab @ '1:17'
 	}
 	book Mic
 	{
-		chapter break from nab to default @ '4:14' shifting 1 verse
+		chapter break from nab to default @ '4:14'
 	}
 	book Nah
 	{
-		chapter break from default to nab @ '1:15' shifting 1 verse
+		chapter break from default to nab @ '1:15'
 	}
 	book Zech
 	{
-		chapter break from default to nab @ '1:18' shifting 4 verses
+		chapter break from default to nab @ '1:18'
 	}
 	book Mal
 	{

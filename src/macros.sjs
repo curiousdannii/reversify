@@ -34,17 +34,17 @@ export book;
 
 macro chapter
 {
-    rule { break from default to $translations:str (,) ... @ $break shifting $count $verses } => {
-        gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ 'to', $break, $count ] );
+    rule { break from default to $translations:str (,) ... @ $break } => {
+        gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ 'from', $break ] );
     }
-    rule { break from $translations:str (,) ... to default @ $break shifting $count $verses } => {
-        gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ 'from', $break, $count ] );
+    rule { break from $translations:str (,) ... to default @ $break } => {
+        gen.maketransformation( 'chapter_break', [ $translations (,) ... ], [ 'to', $break ] );
     }
     rule { split from default to $translations:str (,) ... @ $break } => {
-        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'to', $break ] );
+        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'from', $break ] );
     }
     rule { split from $translations:str (,) ... to default @ $break } => {
-        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'from', $break ] );
+        gen.maketransformation( 'chapter_split', [ $translations (,) ... ], [ 'to', $break ] );
     }
 }
 export chapter;
@@ -52,19 +52,19 @@ export chapter;
 macro verse
 {
     rule { split from default to $translations:str (,) ... @ $break } => {
-        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break ] );
-    }
-    rule { split from $translations:str (,) ... to default @ $break after a psalm heading } => {
-        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break, true ] );
-    }
-    rule { split from $translations:str (,) ... to default @ $break } => {
         gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break ] );
     }
+    rule { split from $translations:str (,) ... to default @ $break after a psalm heading } => {
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break, true ] );
+    }
+    rule { split from $translations:str (,) ... to default @ $break } => {
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break ] );
+    }
     rule { split across chapters from default to $translations:str (,) ... @ $break } => {
-        gen.maketransformation( 'verse_split_across_chapters', [ $translations (,) ... ], [ 'to', $break ] );
+        gen.maketransformation( 'verse_split_across_chapters', [ $translations (,) ... ], [ 'from', $break ] );
     }
     rule { split across chapters from $translations:str (,) ... to default @ $break } => {
-        gen.maketransformation( 'verse_split_across_chapters', [ $translations (,) ... ], [ 'from', $break ] );
+        gen.maketransformation( 'verse_split_across_chapters', [ $translations (,) ... ], [ 'to', $break ] );
     }
 }
 export verse;

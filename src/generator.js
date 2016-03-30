@@ -9,8 +9,10 @@ http://github.com/curiousdannii/reversify
 
 */
 
+var bcv_parser = require( 'bible-passage-reference-parser/js/en_bcv_parser' );
 var fs = require( 'fs' );
 
+var translations = bcv_parser.bcv_parser.prototype.translations;
 var data = {};
 
 // Parse a single verse reference
@@ -56,6 +58,7 @@ module.exports.makebook = ( name, func ) =>
 
 module.exports.maketransformation = ( type, translations, args ) =>
 {
+	data.translation = translations[0];
 	var trans_check = translations.map( trans => `translation === '${ trans }'` ).join( ' || ' );
 	if ( data.trans_check !== trans_check )
 	{
@@ -72,13 +75,17 @@ module.exports.maketransformation = ( type, translations, args ) =>
 
 var transforms = {
 	chapter_break: {
-		func: ( direction, break_at, count ) =>
+		func: ( direction, break_at ) =>
 		{
 			break_at = parse_ref( break_at );
+
+			// Calculate the number of verses to be shifted
+			var count = translations[ direction === 'from' ? 'default' : data.translation ].chapters[ data.book ][ break_at.c - 1 ] - break_at.v + 1;
+
 			return `// Chapter break ${ data.book } ${ break_at.label }
 			if ( start.c === ${ break_at.c } || start.c === ${ break_at.c + 1 } || end.c === ${ break_at.c } || end.c === ${ break_at.c + 1 } )
 			{
-				do_chapter_break({ early: to_default === ${ direction === 'from' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }, count: ${ count } });
+				do_chapter_break({ early: to_default === ${ direction === 'to' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }, count: ${ count } });
 			}`;
 		},
 	},
@@ -89,7 +96,7 @@ var transforms = {
 			return `// Chapter split ${ data.book } ${ break_at.label }
 			if ( start.c >= ${ break_at.c } || end.c >= ${ break_at.c } )
 			{
-				do_chapter_split({ early: to_default === ${ direction === 'from' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v } });
+				do_chapter_split({ early: to_default === ${ direction === 'to' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v } });
 			}`;
 		},
 	},
@@ -100,7 +107,7 @@ var transforms = {
 			return `// Verse split ${ data.book } ${ break_at.label }
 			if ( start.c === ${ break_at.c } || end.c === ${ break_at.c } )
 			{
-				do_verse_split({ split: to_default === ${ direction === 'from' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }${ psalm_heading ? ', psalm_heading: 1' : '' } });
+				do_verse_split({ split: to_default === ${ direction === 'to' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }${ psalm_heading ? ', psalm_heading: 1' : '' } });
 			}`;
 		},
 	},
@@ -111,7 +118,7 @@ var transforms = {
 			return `// Verse split across a chapter break ${ data.book } ${ break_at.label }
 			if ( start.c === ${ break_at.c } || start.c === ${ break_at.c + 1 } || end.c === ${ break_at.c } || end.c === ${ break_at.c + 1 } )
 			{
-				do_verse_split_across_chapters({ split: to_default === ${ direction === 'from' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v } });
+				do_verse_split_across_chapters({ split: to_default === ${ direction === 'to' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v } });
 			}`;
 		},
 	},
