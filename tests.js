@@ -1,5 +1,7 @@
 // Unit tests for Reversify
 
+/*eslint-env mocha */
+
 var bcv_parser = require( 'bible-passage-reference-parser/js/en_bcv_parser' );
 var expect = require( 'chai' ).expect;
 

@@ -15,6 +15,7 @@
   "devDependencies": {
     "bible-passage-reference-parser": "^1.0.0",
     "chai": "^3.5.0",
+    "eslint": "^2.5.3",
     "mocha": "^2.4.5",
     "sweet.js": "^0.7.8"
   },
@@ -22,6 +23,7 @@
     "bible-passage-reference-parser": "^1.0.0"
   },
   "scripts": {
+    "lint": "eslint .",
     "prepublish": "sjs -p -m ./src/macros.sjs src/transformations.data | node > transformations.js",
     "test": "mocha tests.js"
   }
