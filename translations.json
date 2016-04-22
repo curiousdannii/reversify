@@ -1,8 +1,16 @@
 {
   "aliases": {
+    "gnt": {
+      "osis": "GNT",
+      "alias": "nrsv"
+    },
     "hcsb": {
       "osis": "HCSB",
       "alias": "hcsb"
+    },
+    "net": {
+      "osis": "NET",
+      "alias": "nrsv"
     }
   },
   "hcsb": {

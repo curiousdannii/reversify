@@ -25,10 +25,12 @@ bcv.parse( 'Lev 5:21 NAB' ).reversify( 'default' );
 
  - CEB (incomplete support outside the Protestant Canon)
  - ESV
+ - GNT (Good News)
  - HCSB
  - KJV, NKJV
  - NAB, NABRE (except for Daniel)
  - NASB
+ - NET
  - NIV, NRIV, TNIV
  - NLT
  - NRSV
