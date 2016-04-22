@@ -9,11 +9,16 @@ http://github.com/curiousdannii/reversify
 
 */
 
+var _ = require( 'lodash' );
+
 var transformations = require( './transformations.js' );
+var translations = require( './translations.json' );
 
 // Export a function to insert our code into bible-passage-reference-parser
 module.exports = function( bcv_parser )
 {
+	_.merge( bcv_parser.bcv_parser.prototype.translations, translations );
+	bcv_parser.bcv_parser.prototype.regexps.translations = new RegExp( '(' + Object.keys( bcv_parser.bcv_parser.prototype.translations.aliases ).join( '|' ) + ')\\b', 'gi' );
 	bcv_parser.bcv_parser.prototype.reversify = reversify;
 };
 

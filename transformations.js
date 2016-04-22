@@ -582,7 +582,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '2Cor' )
 	{
-		if ( translation === 'ceb' || translation === 'nab' || translation === 'nrsv' )
+		if ( translation === 'ceb' || translation === 'hcsb' || translation === 'nab' || translation === 'nrsv' )
 		{
 			// Verse split 2Cor 13:12
 			if ( start.c === 13 || end.c === 13 )
@@ -593,7 +593,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '3John' )
 	{
-		if ( translation === 'kjv' )
+		if ( translation === 'hcsb' || translation === 'kjv' )
 		{
 			// Verse split 3John 1:14
 			if ( start.c === 1 || end.c === 1 )
@@ -604,7 +604,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Rev' )
 	{
-		if ( translation === 'ceb' || translation === 'nab' || translation === 'nlt' || translation === 'nrsv' )
+		if ( translation === 'ceb' || translation === 'hcsb' || translation === 'nab' || translation === 'nlt' || translation === 'nrsv' )
 		{
 			// Verse split Rev 12:17
 			if ( start.c === 12 || end.c === 12 )

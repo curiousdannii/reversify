@@ -1,6 +1,8 @@
 # Reversify
 
-[![npm](https://img.shields.io/npm/v/reversify.svg)](https://www.npmjs.com/package/reversify) [![devDependency Status](https://img.shields.io/david/dev/curiousdannii/reversify.svg)](https://david-dm.org/curiousdannii/reversify#info=devDependencies)
+[![npm](https://img.shields.io/npm/v/reversify.svg)](https://www.npmjs.com/package/reversify)
+[![dependencies status](https://img.shields.io/david/curiousdannii/reversify.svg)](https://david-dm.org/curiousdannii/reversify)
+[![devDependencies status](https://img.shields.io/david/dev/curiousdannii/reversify.svg)](https://david-dm.org/curiousdannii/reversify#info=devDependencies)
 
 A plugin for [bible-passage-reference-parser](https://www.npmjs.com/package/bible-passage-reference-parser) to change versification systems.
 
@@ -23,6 +25,7 @@ bcv.parse( 'Lev 5:21 NAB' ).reversify( 'default' );
 
  - CEB (incomplete support outside the Protestant Canon)
  - ESV
+ - HCSB
  - KJV, NKJV
  - NAB, NABRE (except for Daniel)
  - NASB

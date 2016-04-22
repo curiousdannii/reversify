@@ -19,6 +19,9 @@
     "mocha": "^2.4.5",
     "sweet.js": "^0.7.8"
   },
+  "dependencies": {
+    "lodash": "^4.11.1"
+  },
   "peerDependencies": {
     "bible-passage-reference-parser": "^1.0.0"
   },

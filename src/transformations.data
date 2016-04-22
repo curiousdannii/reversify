@@ -9,6 +9,8 @@ http://github.com/curiousdannii/reversify
 
 */
 
+// This file follows bible-passage-reference-parser's convention of considering the ESV the 'default' reference version
+
 data
 {
 	book Gen
@@ -150,15 +152,15 @@ data
 	}
 	book '2Cor'
 	{
-		verse split from ceb, nab, nrsv to default @ '13:12'
+		verse split from ceb, hcsb, nab, nrsv to default @ '13:12'
 	}
 	book '3John'
 	{
-		verse split from kjv to default @ '1:14'
+		verse split from hcsb, kjv to default @ '1:14'
 	}
 	book Rev
 	{
-		verse split from default to ceb, nab, nlt, nrsv @ '12:17'
+		verse split from default to ceb, hcsb, nab, nlt, nrsv @ '12:17'
 	}
 	book Tobit
 	{

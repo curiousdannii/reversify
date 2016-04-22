@@ -17,6 +17,17 @@ describe( 'reversify', function()
 		expect( bcv.parse( 'Matthew 1:1' ).reversify( 'esv' ) ).to.equal( 'Matt.1.1' );
 	});
 
+	it( 'should support non-default to non-default reversifications', function()
+	{
+		expect( bcv.parse( '3 John 14 HCSB' ).reversify( 'KJV' ) ).to.equal( '3John.1.14' );
+		expect( bcv.parse( '3 John 14 KJV' ).reversify( 'HCSB' ) ).to.equal( '3John.1.14' );
+	});
+
+	it( 'should support additional translations', function()
+	{
+		expect( bcv.parse( '2 Cor 13:12 HCSB' ).reversify( 'default' ) ).to.equal( '2Cor.13.12-2Cor.13.13' );
+	});
+
 	describe( 'should handle renumbering chapter breaks', function()
 	{
 		it( 'for single verses', function()
