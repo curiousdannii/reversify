@@ -9,10 +9,12 @@ http://github.com/curiousdannii/reversify
 
 */
 
+var _ = require( 'lodash' );
 var bcv_parser = require( 'bible-passage-reference-parser/js/en_bcv_parser' );
 var fs = require( 'fs' );
 
 var translations = bcv_parser.bcv_parser.prototype.translations;
+_.merge( translations, require( '../translations.json' ) );
 var data = {};
 
 // Parse a single verse reference

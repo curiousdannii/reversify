@@ -15,66 +15,72 @@ data
 {
 	book Gen
 	{
-		chapter break from default to nab @ '31:55'
+		chapter break from default to nab, njps @ '31:55'
 	}
 	book Exod
 	{
-		chapter break from nab to default @ '7:26'
-		chapter break from nab to default @ '21:37'
+		chapter break from nab, njps to default @ '7:26'
+		// TODO exod 20 njps
+		chapter break from nab, njps to default @ '21:37'
 	}
 	book Lev
 	{
-		chapter break from nab to default @ '5:20'
+		chapter break from nab, njps to default @ '5:20'
 	}
 	book Num
 	{
-		chapter break from default to nab @ '16:36'
-		// nab split verses 25:19-26:1 = 26:1 -> not worth handling at this time
-		chapter break from default to nab @ '29:40'
+		chapter break from default to nab, njps @ '16:36'
+		// nab, njps split verses 25:19-26:1 = 26:1 -> not worth handling at this time
+		chapter break from default to nab, njps @ '29:40'
 	}
 	book Deut
 	{
-		chapter break from default to nab @ '12:32'
-		chapter break from default to nab @ '22:30'
-		chapter break from nab to default @ '28:69'
+		// TODO deut 5 njps
+		chapter break from default to nab, njps @ '12:32'
+		chapter break from default to nab, njps @ '22:30'
+		chapter break from nab, njps to default @ '28:69'
 	}
+	/*book Josh
+	{
+		// TODO josh 21:36-37 deleted njps
+	}*/
 	book '1Sam'
 	{
-		verse split across chapters from default to nab @ '20:42'
-		chapter break from default to nab @ '23:29'
+		verse split across chapters from default to nab, njps @ '20:42'
+		chapter break from default to nab, njps @ '23:29'
 	}
 	book '2Sam'
 	{
-		chapter break from default to nab @ '18:33'
+		chapter break from default to nab, njps @ '18:33'
 	}
 	book '1Kgs'
 	{
-		chapter break from default to nab @ '4:21'
-		verse split from default to nab @ '22:43'
+		chapter break from default to nab, njps @ '4:21'
+		verse split from default to nab, njps @ '22:43'
 	}
 	book '2Kgs'
 	{
-		chapter break from default to nab @ '11:21'
+		chapter break from default to nab, njps @ '11:21'
 	}
 	book '1Chr'
 	{
-		chapter break from nab to default @ '5:27'
-		verse split from default to nab @ '12:4'
+		chapter break from nab, njps to default @ '5:27'
+		verse split from default to nab, njps @ '12:4'
 	}
 	book '2Chr'
 	{
-		chapter break from nab to default @ '1:18'
-		chapter break from nab to default @ '13:23'
+		chapter break from nab, njps to default @ '1:18'
+		chapter break from nab, njps to default @ '13:23'
 	}
 	book Neh
 	{
-		chapter break from nab to default @ '3:33'
-		verse split from nab to default @ '7:67'
-		chapter break from default to nab @ '9:38'
+		chapter break from nab, njps to default @ '3:33'
+		verse split from nab, njps to default @ '7:67'
+		chapter break from default to nab, njps @ '9:38'
 	}
 	book Job
 	{
-		chapter break from nab to default @ '40:25'
+		chapter break from nab, njps to default @ '40:25'
 	}
 	book Ps
 	{
@@ -89,62 +95,68 @@ data
 	}
 	book Eccl
 	{
-		chapter break from nab to default @ '4:17'
+		chapter break from nab, njps to default @ '4:17'
 	}
 	book Song
 	{
-		chapter break from default to nab @ '6:13'
+		chapter break from default to nab, njps @ '6:13'
 	}
 	book Isa
 	{
-		chapter break from nab to default @ '8:23'
-		verse split across chapters from nab to default @ '63:19'
+		chapter break from nab, njps to default @ '8:23'
+		verse split across chapters from nab, njps to default @ '63:19'
 	}
 	book Jer
 	{
-		chapter break from nab to default @ '8:23'
+		chapter break from nab, njps to default @ '8:23'
 	}
 	book Ezek
 	{
-		chapter break from default to nab @ '20:45'
+		chapter break from default to nab, njps @ '20:45'
 	}
 	book Dan
 	{
 		// nab ch 3 PrAzar
 		// nab ch 3-4 chap break
-		chapter break from default to nab @ '5:31'
+		chapter break from njps to default @ '3:31'
+		chapter break from default to nab, njps @ '5:31'
+		verse split from njps to default @ '12:11'
 		// nab end of book
 	}
 	book Hos
 	{
-		chapter break from default to nab @ '1:10'
-		chapter break from default to nab @ '11:12'
-		chapter break from default to nab @ '13:16'
+		chapter break from default to nab, njps @ '1:10'
+		chapter break from default to nab, njps @ '11:12'
+		chapter break from default to nab, njps @ '13:16'
 	}
 	book Joel
 	{
-		chapter split from default to nab @ '2:28'
+		chapter split from default to nab, njps @ '2:28'
 	}
 	book Jonah
 	{
-		chapter break from default to nab @ '1:17'
+		chapter break from default to nab, njps @ '1:17'
 	}
 	book Mic
 	{
-		chapter break from nab to default @ '4:14'
+		chapter break from nab, njps to default @ '4:14'
 	}
 	book Nah
 	{
-		chapter break from default to nab @ '1:15'
+		chapter break from default to nab, njps @ '1:15'
 	}
 	book Zech
 	{
-		chapter break from default to nab @ '1:18'
+		chapter break from default to nab, njps @ '1:18'
 	}
 	book Mal
 	{
-		chapter split from nab to default @ '3:19'
+		chapter split from nab, njps to default @ '3:19'
 	}
+	/*book John
+	{
+		// messy gnt 7:53-8:1
+	}*/
 	book Acts
 	{
 		verse split from default to nab @ '10:48'

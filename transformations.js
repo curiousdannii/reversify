@@ -172,7 +172,7 @@ module.exports = function( entity, translation, to_default )
 	var start = entity.start, end = entity.end, book = start.b, chapters;
 	if ( book === 'Gen' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Gen 31:55
 			if ( start.c === 31 || start.c === 32 || end.c === 31 || end.c === 32 )
@@ -183,7 +183,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Exod' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Exod 7:26
 			if ( start.c === 7 || start.c === 8 || end.c === 7 || end.c === 8 )
@@ -199,7 +199,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Lev' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Lev 5:20
 			if ( start.c === 5 || start.c === 6 || end.c === 5 || end.c === 6 )
@@ -210,7 +210,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Num' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Num 16:36
 			if ( start.c === 16 || start.c === 17 || end.c === 16 || end.c === 17 )
@@ -226,7 +226,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Deut' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Deut 12:32
 			if ( start.c === 12 || start.c === 13 || end.c === 12 || end.c === 13 )
@@ -247,7 +247,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '1Sam' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Verse split across a chapter break 1Sam 20:42
 			if ( start.c === 20 || start.c === 21 || end.c === 20 || end.c === 21 )
@@ -263,7 +263,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '2Sam' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break 2Sam 18:33
 			if ( start.c === 18 || start.c === 19 || end.c === 18 || end.c === 19 )
@@ -274,7 +274,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '1Kgs' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break 1Kgs 4:21
 			if ( start.c === 4 || start.c === 5 || end.c === 4 || end.c === 5 )
@@ -290,7 +290,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '2Kgs' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break 2Kgs 11:21
 			if ( start.c === 11 || start.c === 12 || end.c === 11 || end.c === 12 )
@@ -301,7 +301,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '1Chr' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break 1Chr 5:27
 			if ( start.c === 5 || start.c === 6 || end.c === 5 || end.c === 6 )
@@ -317,7 +317,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === '2Chr' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break 2Chr 1:18
 			if ( start.c === 1 || start.c === 2 || end.c === 1 || end.c === 2 )
@@ -333,7 +333,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Neh' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Neh 3:33
 			if ( start.c === 3 || start.c === 4 || end.c === 3 || end.c === 4 )
@@ -354,7 +354,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Job' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Job 40:25
 			if ( start.c === 40 || start.c === 41 || end.c === 40 || end.c === 41 )
@@ -408,7 +408,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Eccl' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Eccl 4:17
 			if ( start.c === 4 || start.c === 5 || end.c === 4 || end.c === 5 )
@@ -419,7 +419,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Song' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Song 6:13
 			if ( start.c === 6 || start.c === 7 || end.c === 6 || end.c === 7 )
@@ -430,7 +430,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Isa' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Isa 8:23
 			if ( start.c === 8 || start.c === 9 || end.c === 8 || end.c === 9 )
@@ -446,7 +446,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Jer' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Jer 8:23
 			if ( start.c === 8 || start.c === 9 || end.c === 8 || end.c === 9 )
@@ -457,7 +457,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Ezek' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Ezek 20:45
 			if ( start.c === 20 || start.c === 21 || end.c === 20 || end.c === 21 )
@@ -468,7 +468,15 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Dan' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'njps' )
+		{
+			// Chapter break Dan 3:31
+			if ( start.c === 3 || start.c === 4 || end.c === 3 || end.c === 4 )
+			{
+				do_chapter_break({ early: to_default === true, entity: entity, c: 3, v: 31, count: 3 });
+			}
+		}
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Dan 5:31
 			if ( start.c === 5 || start.c === 6 || end.c === 5 || end.c === 6 )
@@ -476,10 +484,18 @@ module.exports = function( entity, translation, to_default )
 				do_chapter_break({ early: to_default === false, entity: entity, c: 5, v: 31, count: 1 });
 			}
 		}
+		if ( translation === 'njps' )
+		{
+			// Verse split Dan 12:11
+			if ( start.c === 12 || end.c === 12 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 12, v: 11 });
+			}
+		}
 	}
 	if ( book === 'Hos' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Hos 1:10
 			if ( start.c === 1 || start.c === 2 || end.c === 1 || end.c === 2 )
@@ -500,7 +516,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Joel' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter split Joel 2:28
 			if ( start.c >= 2 || end.c >= 2 )
@@ -511,7 +527,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Jonah' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Jonah 1:17
 			if ( start.c === 1 || start.c === 2 || end.c === 1 || end.c === 2 )
@@ -522,7 +538,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Mic' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Mic 4:14
 			if ( start.c === 4 || start.c === 5 || end.c === 4 || end.c === 5 )
@@ -533,7 +549,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Nah' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Nah 1:15
 			if ( start.c === 1 || start.c === 2 || end.c === 1 || end.c === 2 )
@@ -544,7 +560,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Zech' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Zech 1:18
 			if ( start.c === 1 || start.c === 2 || end.c === 1 || end.c === 2 )
@@ -555,7 +571,7 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Mal' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter split Mal 3:19
 			if ( start.c >= 3 || end.c >= 3 )
