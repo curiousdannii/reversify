@@ -365,10 +365,10 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Ps' )
 	{
-		if ( translation === 'nab' )
+		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Psalm heading 1 verse(s)
-			chapters = [3,4,5,6,7,8,9,12,13,18,19,20,22,30,31,34,36,38,39,40,41,42,44,45,46,47,48,49,53,55,56,57,58,59,61,62,63,64,65,66,67,68,69,70,72,75,76,77,80,81,83,84,85,88,89,92,102,108,109,140,142];
+			chapters = [3,4,5,6,7,8,9,12,13,18,19,20,21,22,30,31,34,36,38,39,40,41,42,44,45,46,47,48,49,53,55,56,57,58,59,61,62,63,64,65,66,67,68,69,70,75,76,77,80,81,83,84,85,88,89,92,102,108,140,142];
 			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )
 			{
 				do_psalm_heading({ to_default: to_default, entity: entity, count: 1 });
@@ -379,11 +379,6 @@ module.exports = function( entity, translation, to_default )
 			{
 				do_psalm_heading({ to_default: to_default, entity: entity, count: 2 });
 			}
-			// Verse split Ps 2:11
-			if ( start.c === 2 || end.c === 2 )
-			{
-				do_verse_split({ split: to_default === true, entity: entity, c: 2, v: 11 });
-			}
 			// Verse split Ps 13:6
 			if ( start.c === 13 || end.c === 13 )
 			{
@@ -393,6 +388,20 @@ module.exports = function( entity, translation, to_default )
 			if ( start.c === 66 || end.c === 66 )
 			{
 				do_verse_split({ split: to_default === true, entity: entity, c: 66, v: 2, psalm_heading: 1 });
+			}
+		}
+		if ( translation === 'nab' )
+		{
+			// Psalm heading 1 verse(s)
+			chapters = [72,109];
+			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )
+			{
+				do_psalm_heading({ to_default: to_default, entity: entity, count: 1 });
+			}
+			// Verse split Ps 2:11
+			if ( start.c === 2 || end.c === 2 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 2, v: 11 });
 			}
 			// Verse split Ps 72:2
 			if ( start.c === 72 || end.c === 72 )

@@ -84,14 +84,17 @@ data
 	}
 	book Ps
 	{
-		psalm heading nab 1 verse @ 3, 4, 5, 6, 7, 8, 9, 12, 13, 18, 19, 20, 22, 30, 31, 34, 36, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 53, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 72, 75, 76, 77, 80, 81, 83, 84, 85, 88, 89, 92, 102, 108, 109, 140, 142
-		psalm heading nab 2 verses @ 51, 52, 54, 60
+		psalm heading nab, njps 1 verse @ 3, 4, 5, 6, 7, 8, 9, 12, 13, 18, 19, 20, 21, 22, 30, 31, 34, 36, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 53, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 75, 76, 77, 80, 81, 83, 84, 85, 88, 89, 92, 102, 108, 140, 142
+		psalm heading nab, njps 2 verses @ 51, 52, 54, 60
+		verse split from nab, njps to default @ '13:6' after a psalm heading
+		verse split from nab, njps to default @ '66:2' after a psalm heading
+		psalm heading nab 1 verse @ 72, 109
 		verse split from nab to default @ '2:11'
-		verse split from nab to default @ '13:6' after a psalm heading
-		verse split from nab to default @ '66:2' after a psalm heading
 		verse split from nab to default @ '72:2' after a psalm heading
 		verse split from nab to default @ '109:2' after a psalm heading
-		// nab messy verses 146:1-2
+		// njps messy verses 87:1-2
+		// also note it looks like taggedtanakh.org has incorrect versification for this Psalm, compare http://taggedtanakh.org/Chapter/Index/english-Ps-87 http://nocr.net/bexpo/english/engtnk/index.php/Ps/87
+		// nab, njps messy verses 146:1-2
 	}
 	book Eccl
 	{

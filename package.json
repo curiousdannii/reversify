@@ -13,7 +13,7 @@
   "homepage": "https://github.com/curiousdannii/reversify",
   "bugs": "https://github.com/curiousdannii/reversify/issues",
   "devDependencies": {
-    "bible-passage-reference-parser": "^1.0.0",
+    "bible-passage-reference-parser": "^1.0.0 || ^2.0.0",
     "chai": "^3.5.0",
     "eslint": "^2.5.3",
     "mocha": "^2.4.5",
@@ -23,7 +23,7 @@
     "lodash": "^4.11.1"
   },
   "peerDependencies": {
-    "bible-passage-reference-parser": "^1.0.0"
+    "bible-passage-reference-parser": "^1.0.0 || ^2.0.0"
   },
   "scripts": {
     "lint": "eslint .",
