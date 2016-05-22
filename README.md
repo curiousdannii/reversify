@@ -32,5 +32,6 @@ bcv.parse( 'Lev 5:21 NAB' ).reversify( 'default' );
  - NASB
  - NET
  - NIV, NRIV, TNIV
+ - NJPS
  - NLT
  - NRSV
