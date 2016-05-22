@@ -55,10 +55,16 @@ macro verse
         gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break ] );
     }
     rule { split from $translations:str (,) ... to default @ $break after a psalm heading } => {
-        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break, true ] );
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break, 0, true ] );
     }
     rule { split from $translations:str (,) ... to default @ $break } => {
         gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break ] );
+    }
+    rule { split into $count from default to $translations:str (,) ... @ $break } => {
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'from', $break, $count - 1 ] );
+    }
+    rule { split into $count from $translations:str (,) ... to default @ $break } => {
+        gen.maketransformation( 'verse_split', [ $translations (,) ... ], [ 'to', $break, $count - 1 ] );
     }
     rule { split across chapters from default to $translations:str (,) ... @ $break } => {
         gen.maketransformation( 'verse_split_across_chapters', [ $translations (,) ... ], [ 'from', $break ] );

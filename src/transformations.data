@@ -20,7 +20,7 @@ data
 	book Exod
 	{
 		chapter break from nab, njps to default @ '7:26'
-		// TODO exod 20 njps
+		verse split into 4 from njps to default @ '20:13'
 		chapter break from nab, njps to default @ '21:37'
 	}
 	book Lev
@@ -35,7 +35,7 @@ data
 	}
 	book Deut
 	{
-		// TODO deut 5 njps
+		verse split into 4 from njps to default @ '5:17'
 		chapter break from default to nab, njps @ '12:32'
 		chapter break from default to nab, njps @ '22:30'
 		chapter break from nab, njps to default @ '28:69'

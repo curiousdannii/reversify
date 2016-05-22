@@ -131,6 +131,32 @@ describe( 'reversify', function()
 		});
 	});
 
+	describe( 'should handle verses which are split into many', function()
+	{
+		it( 'for single verses', function()
+		{
+			expect( bcv.parse( 'Exodus 20:13 NJPS' ).reversify( 'default' ) ).to.equal( 'Exod.20.13-Exod.20.16' );
+			expect( bcv.parse( 'Exodus 20:13' ).reversify( 'NJPS' ) ).to.equal( 'Exod.20.13' );
+			expect( bcv.parse( 'Exodus 20:16' ).reversify( 'NJPS' ) ).to.equal( 'Exod.20.13' );
+		});
+
+		it( 'for overlapping ranges', function()
+		{
+			expect( bcv.parse( 'Exodus 20:11-13 NJPS' ).reversify( 'default' ) ).to.equal( 'Exod.20.11-Exod.20.16' );
+			expect( bcv.parse( 'Exodus 20:11-13' ).reversify( 'NJPS' ) ).to.equal( 'Exod.20.11-Exod.20.13' );
+			expect( bcv.parse( 'Exodus 20:11-16' ).reversify( 'NJPS' ) ).to.equal( 'Exod.20.11-Exod.20.13' );
+			expect( bcv.parse( 'Exodus 20:13-15 NJPS' ).reversify( 'default' ) ).to.equal( 'Exod.20.13-Exod.20.18' );
+			expect( bcv.parse( 'Exodus 20:13-18' ).reversify( 'NJPS' ) ).to.equal( 'Exod.20.13-Exod.20.15' );
+			expect( bcv.parse( 'Exodus 20:16-18' ).reversify( 'NJPS' ) ).to.equal( 'Exod.20.13-Exod.20.15' );
+		});
+
+		it( 'for other affected verses', function()
+		{
+			expect( bcv.parse( 'Exodus 20:18 NJPS' ).reversify( 'default' ) ).to.equal( 'Exod.20.21' );
+			expect( bcv.parse( 'Exodus 20:21' ).reversify( 'NJPS' ) ).to.equal( 'Exod.20.18' );
+		});
+	});
+
 	describe( 'should handle verses which are split in two across chapter breaks', function()
 	{
 		it( 'for single verses', function()

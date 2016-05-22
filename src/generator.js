@@ -103,13 +103,13 @@ var transforms = {
 		},
 	},
 	verse_split: {
-		func: ( direction, break_at, psalm_heading ) =>
+		func: ( direction, break_at, count, psalm_heading ) =>
 		{
 			break_at = parse_ref( break_at );
 			return `// Verse split ${ data.book } ${ break_at.label }
 			if ( start.c === ${ break_at.c } || end.c === ${ break_at.c } )
 			{
-				do_verse_split({ split: to_default === ${ direction === 'to' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }${ psalm_heading ? ', psalm_heading: 1' : '' } });
+				do_verse_split({ split: to_default === ${ direction === 'to' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }${ count ? ', count: ' + count : '' }${ psalm_heading ? ', psalm_heading: 1' : '' } });
 			}`;
 		},
 	},

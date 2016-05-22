@@ -90,7 +90,7 @@ function do_verse_split( opt )
 		{
 			if ( ref.c === opt.c && verse_test )
 			{
-				ref.v++;
+				ref.v += count;
 			}
 		}
 		// Join them back together
@@ -98,11 +98,12 @@ function do_verse_split( opt )
 		{
 			if ( ref.c === opt.c && ref.v >= opt.v + 1 )
 			{
-				ref.v--;
+				ref.v -= count;
 			}
 		}
 	}
 
+	var count = opt.count || 1;
 	if ( opt.split )
 	{
 		opt.v -= opt.psalm_heading || 0;
@@ -190,6 +191,17 @@ module.exports = function( entity, translation, to_default )
 			{
 				do_chapter_break({ early: to_default === true, entity: entity, c: 7, v: 26, count: 4 });
 			}
+		}
+		if ( translation === 'njps' )
+		{
+			// Verse split Exod 20:13
+			if ( start.c === 20 || end.c === 20 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 20, v: 13, count: 3 });
+			}
+		}
+		if ( translation === 'nab' || translation === 'njps' )
+		{
 			// Chapter break Exod 21:37
 			if ( start.c === 21 || start.c === 22 || end.c === 21 || end.c === 22 )
 			{
@@ -226,6 +238,14 @@ module.exports = function( entity, translation, to_default )
 	}
 	if ( book === 'Deut' )
 	{
+		if ( translation === 'njps' )
+		{
+			// Verse split Deut 5:17
+			if ( start.c === 5 || end.c === 5 )
+			{
+				do_verse_split({ split: to_default === true, entity: entity, c: 5, v: 17, count: 3 });
+			}
+		}
 		if ( translation === 'nab' || translation === 'njps' )
 		{
 			// Chapter break Deut 12:32

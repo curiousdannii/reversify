@@ -90,7 +90,7 @@ function do_verse_split( opt )
 		{
 			if ( ref.c === opt.c && verse_test )
 			{
-				ref.v++;
+				ref.v += count;
 			}
 		}
 		// Join them back together
@@ -98,11 +98,12 @@ function do_verse_split( opt )
 		{
 			if ( ref.c === opt.c && ref.v >= opt.v + 1 )
 			{
-				ref.v--;
+				ref.v -= count;
 			}
 		}
 	}
 
+	var count = opt.count || 1;
 	if ( opt.split )
 	{
 		opt.v -= opt.psalm_heading || 0;
