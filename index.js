@@ -54,7 +54,7 @@ function reversify( to_translation )
 			{
 				entity = transformations( entity, to_translation, false );
 			}
-			if ( !entity )
+			if ( !entity || entity.deleted )
 			{
 				return '';
 			}

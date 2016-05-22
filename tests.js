@@ -194,6 +194,35 @@ describe( 'reversify', function()
 		});
 	});
 
+	describe( 'should handle deleted verses', function()
+	{
+		it( 'for the verses themselves', function()
+		{
+			expect( bcv.parse( 'Joshua 21:36' ).reversify( 'NJPS' ) ).to.equal( '' );
+			expect( bcv.parse( 'Joshua 21:37' ).reversify( 'NJPS' ) ).to.equal( '' );
+			expect( bcv.parse( 'Joshua 21:36-37' ).reversify( 'NJPS' ) ).to.equal( '' );
+		});
+
+		it( 'for overlapping ranges', function()
+		{
+			expect( bcv.parse( 'Joshua 21:35-36' ).reversify( 'NJPS' ) ).to.equal( 'Josh.21.35' );
+			expect( bcv.parse( 'Joshua 21:37-38' ).reversify( 'NJPS' ) ).to.equal( 'Josh.21.36' );
+			expect( bcv.parse( 'Joshua 21:34-40' ).reversify( 'NJPS' ) ).to.equal( 'Josh.21.34-Josh.21.38' );
+			expect( bcv.parse( 'Joshua 21:36-22:5' ).reversify( 'NJPS' ) ).to.equal( 'Josh.21.36-Josh.22.5' );
+			expect( bcv.parse( 'Joshua 20:7-21:37' ).reversify( 'NJPS' ) ).to.equal( 'Josh.20.7-Josh.21.35' );
+			expect( bcv.parse( 'Joshua 21:35-36 NJPS' ).reversify( 'default' ) ).to.equal( 'Josh.21.35-Josh.21.38' );
+			expect( bcv.parse( 'Joshua 21:37-38 NJPS' ).reversify( 'default' ) ).to.equal( 'Josh.21.39-Josh.21.40' );
+		});
+
+		it( 'for other affected verses', function()
+		{
+			expect( bcv.parse( 'Joshua 21:38-39' ).reversify( 'NJPS' ) ).to.equal( 'Josh.21.36-Josh.21.37' );
+			expect( bcv.parse( 'Joshua 21:36-37 NJPS' ).reversify( 'default' ) ).to.equal( 'Josh.21.38-Josh.21.39' );
+			expect( bcv.parse( 'Joshua 21:45' ).reversify( 'NJPS' ) ).to.equal( 'Josh.21.43' );
+			expect( bcv.parse( 'Joshua 21:43 NJPS' ).reversify( 'default' ) ).to.equal( 'Josh.21.45' );
+		});
+	});
+
 	describe( 'should handle Psalm headings', function()
 	{
 		it( 'for single verses', function()

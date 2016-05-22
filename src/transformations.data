@@ -11,6 +11,8 @@ http://github.com/curiousdannii/reversify
 
 // This file follows bible-passage-reference-parser's convention of considering the ESV the 'default' reference version
 
+// In some places there are what I call "messy" verses, where phrases are moved around or in some way are not easily handled through split verses. I have noted those I am aware of, but this package will not transform them
+
 data
 {
 	book Gen
@@ -30,7 +32,7 @@ data
 	book Num
 	{
 		chapter break from default to nab, njps @ '16:36'
-		// nab, njps split verses 25:19-26:1 = 26:1 -> not worth handling at this time
+		// nab, njps split verses 25:19-26:1 = 26:1
 		chapter break from default to nab, njps @ '29:40'
 	}
 	book Deut
@@ -40,10 +42,10 @@ data
 		chapter break from default to nab, njps @ '22:30'
 		chapter break from nab, njps to default @ '28:69'
 	}
-	/*book Josh
+	book Josh
 	{
-		// TODO josh 21:36-37 deleted njps
-	}*/
+		delete 2 verses from default to njps @ '21:36'
+	}
 	book '1Sam'
 	{
 		verse split across chapters from default to nab, njps @ '20:42'
@@ -93,7 +95,7 @@ data
 		verse split from nab to default @ '72:2' after a psalm heading
 		verse split from nab to default @ '109:2' after a psalm heading
 		// njps messy verses 87:1-2
-		// also note it looks like taggedtanakh.org has incorrect versification for this Psalm, compare http://taggedtanakh.org/Chapter/Index/english-Ps-87 http://nocr.net/bexpo/english/engtnk/index.php/Ps/87
+		// Note that taggedtanakh.org has incorrect an versification for this Psalm, compare http://taggedtanakh.org/Chapter/Index/english-Ps-87 http://nocr.net/bexpo/english/engtnk/index.php/Ps/87
 		// nab, njps messy verses 146:1-2
 	}
 	book Eccl

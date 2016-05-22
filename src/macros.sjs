@@ -75,6 +75,17 @@ macro verse
 }
 export verse;
 
+macro delete
+{
+    rule { $count $verses from default to $translations:str (,) ... @ $break } => {
+        gen.maketransformation( 'delete', [ $translations (,) ... ], [ 'from', $break, $count ] );
+    }
+    rule { $count $verses from $translations:str (,) ... to default @ $break } => {
+        gen.maketransformation( 'delete', [ $translations (,) ... ], [ 'to', $break, $count ] );
+    }
+}
+export delete;
+
 macro psalm
 {
     rule { heading $translations:str (,) ... $count $verses @ $chapters (,) ... } => {

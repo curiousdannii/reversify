@@ -124,6 +124,17 @@ var transforms = {
 			}`;
 		},
 	},
+	delete: {
+		func: ( direction, break_at, count ) =>
+		{
+			break_at = parse_ref( break_at );
+			return `// Delete ${ count } verse${ count > 1 ? 's' : '' } ${ data.book } ${ break_at.label }
+			if ( start.c === ${ break_at.c } || end.c === ${ break_at.c } )
+			{
+				do_delete({ to_default: to_default, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }, count: ${ count  } });
+			}`;
+		},
+	},
 	psalm_heading: {
 		func: ( count, chapters ) =>
 		{
