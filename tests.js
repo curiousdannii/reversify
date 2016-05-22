@@ -239,6 +239,10 @@ describe( 'reversify', function()
 			expect( bcv.parse( 'Ps 3' ).reversify( 'NAB' ) ).to.equal( 'Ps.3.2-Ps.3.9' );
 			expect( bcv.parse( 'Ps 51 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.51.1-Ps.51.19' );
 			expect( bcv.parse( 'Ps 51' ).reversify( 'NAB' ) ).to.equal( 'Ps.51.3-Ps.51.21' );
+			expect( bcv.parse( 'Ps 29-30' ).reversify( 'NAB' ) ).to.equal( 'Ps.29.1-Ps.30.13' );
+			expect( bcv.parse( 'Ps 29-30 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.29.1-Ps.30.12' );
+			expect( bcv.parse( 'Ps 30-31' ).reversify( 'NAB' ) ).to.equal( 'Ps.30.2-Ps.31.25' );
+			expect( bcv.parse( 'Ps 30-31 NAB' ).reversify( 'default' ) ).to.equal( 'Ps.30.1-Ps.31.24' );
 		});
 
 		it( 'and delete them if they are the only verse referenced', function()

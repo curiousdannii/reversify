@@ -154,16 +154,8 @@ function do_delete( opt )
 {
 	function do_one_ref( ref )
 	{
-		// Account for the missing verses
-		if ( opt.to_default )
-		{
-			if ( ref.c === opt.c && ref.v >= opt.v )
-			{
-				ref.v += opt.count;
-			}
-		}
 		// Delete the verses
-		else
+		if ( opt.delete )
 		{
 			if ( ref.c === opt.c )
 			{
@@ -175,6 +167,14 @@ function do_delete( opt )
 				{
 					ref.v -= opt.count;
 				}
+			}
+		}
+		// Account for the missing verses
+		else
+		{
+			if ( ref.c === opt.c && ref.v >= opt.v )
+			{
+				ref.v += opt.count;
 			}
 		}
 	}
@@ -196,25 +196,6 @@ function do_delete( opt )
 	else if ( end.deleted )
 	{
 		end.v = opt.v - 1;
-	}
-}
-
-// Handle Psalm headings which have been made their own verse
-function do_psalm_heading( opt )
-{
-	if ( opt.to_default )
-	{
-		opt.entity.start.v -= opt.count;
-		if ( opt.entity.start.v < 1 )
-		{
-			opt.entity.start.v = 1;
-		}
-		opt.entity.end.v -= opt.count;
-	}
-	else
-	{
-		opt.entity.start.v += opt.count;
-		opt.entity.end.v += opt.count;
 	}
 }
 
@@ -322,7 +303,7 @@ module.exports = function( entity, translation, to_default )
 			// Delete 2 verses Josh 21:36
 			if ( start.c === 21 || end.c === 21 )
 			{
-				do_delete({ to_default: to_default, entity: entity, c: 21, v: 36, count: 2 });
+				do_delete({ delete: to_default === false, entity: entity, c: 21, v: 36, count: 2 });
 			}
 		}
 	}
@@ -448,17 +429,25 @@ module.exports = function( entity, translation, to_default )
 	{
 		if ( translation === 'nab' || translation === 'njps' )
 		{
-			// Psalm heading 1 verse(s)
+			// Psalm heading 1 verse
 			chapters = [3,4,5,6,7,8,9,12,13,18,19,20,21,22,30,31,34,36,38,39,40,41,42,44,45,46,47,48,49,53,55,56,57,58,59,61,62,63,64,65,66,67,68,69,70,75,76,77,80,81,83,84,85,88,89,92,102,108,140,142];
-			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )
+			if ( chapters.indexOf( start.c ) >= 0 )
 			{
-				do_psalm_heading({ to_default: to_default, entity: entity, count: 1 });
+				do_delete({ delete: to_default, entity: entity, c: start.c, v: 1, count: 1 });
 			}
-			// Psalm heading 2 verse(s)
-			chapters = [51,52,54,60];
-			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )
+			if ( start.c !== end.c && chapters.indexOf( end.c ) >= 0 )
 			{
-				do_psalm_heading({ to_default: to_default, entity: entity, count: 2 });
+				do_delete({ delete: to_default, entity: entity, c: end.c, v: 1, count: 1 });
+			}
+			// Psalm heading 2 verses
+			chapters = [51,52,54,60];
+			if ( chapters.indexOf( start.c ) >= 0 )
+			{
+				do_delete({ delete: to_default, entity: entity, c: start.c, v: 1, count: 2 });
+			}
+			if ( start.c !== end.c && chapters.indexOf( end.c ) >= 0 )
+			{
+				do_delete({ delete: to_default, entity: entity, c: end.c, v: 1, count: 2 });
 			}
 			// Verse split Ps 13:6
 			if ( start.c === 13 || end.c === 13 )
@@ -473,11 +462,15 @@ module.exports = function( entity, translation, to_default )
 		}
 		if ( translation === 'nab' )
 		{
-			// Psalm heading 1 verse(s)
+			// Psalm heading 1 verse
 			chapters = [72,109];
-			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )
+			if ( chapters.indexOf( start.c ) >= 0 )
 			{
-				do_psalm_heading({ to_default: to_default, entity: entity, count: 1 });
+				do_delete({ delete: to_default, entity: entity, c: start.c, v: 1, count: 1 });
+			}
+			if ( start.c !== end.c && chapters.indexOf( end.c ) >= 0 )
+			{
+				do_delete({ delete: to_default, entity: entity, c: end.c, v: 1, count: 1 });
 			}
 			// Verse split Ps 2:11
 			if ( start.c === 2 || end.c === 2 )
@@ -759,11 +752,6 @@ module.exports = function( entity, translation, to_default )
 				do_verse_split({ split: to_default === false, entity: entity, c: 12, v: 45 });
 			}
 		}
-	}
-	// Handle deleted verses
-	if ( start.c === end.c && start.v > end.v )
-	{
-		return null;
 	}
 	return entity;
 };

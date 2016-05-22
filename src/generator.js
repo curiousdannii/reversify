@@ -38,12 +38,7 @@ module.exports.topntail = ( func ) =>
 
 	func();
 
-	console.log( `	// Handle deleted verses
-	if ( start.c === end.c && start.v > end.v )
-	{
-		return null;
-	}
-	return entity;
+	console.log( `	return entity;
 };` );
 };
 
@@ -131,18 +126,22 @@ var transforms = {
 			return `// Delete ${ count } verse${ count > 1 ? 's' : '' } ${ data.book } ${ break_at.label }
 			if ( start.c === ${ break_at.c } || end.c === ${ break_at.c } )
 			{
-				do_delete({ to_default: to_default, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }, count: ${ count  } });
+				do_delete({ delete: to_default === ${ direction === 'to' }, entity: entity, c: ${ break_at.c }, v: ${ break_at.v }, count: ${ count  } });
 			}`;
 		},
 	},
 	psalm_heading: {
 		func: ( count, chapters ) =>
 		{
-			return `// Psalm heading ${ count } verse(s)
+			return `// Psalm heading ${ count } verse${ count > 1 ? 's' : '' }
 			chapters = ${ JSON.stringify( chapters ) };
-			if ( chapters.indexOf( start.c ) >= 0 || chapters.indexOf( end.c ) >= 0 )
+			if ( chapters.indexOf( start.c ) >= 0 )
 			{
-				do_psalm_heading({ to_default: to_default, entity: entity, count: ${ count } });
+				do_delete({ delete: to_default, entity: entity, c: start.c, v: 1, count: ${ count  } });
+			}
+			if ( start.c !== end.c && chapters.indexOf( end.c ) >= 0 )
+			{
+				do_delete({ delete: to_default, entity: entity, c: end.c, v: 1, count: ${ count  } });
 			}`;
 		},
 	},

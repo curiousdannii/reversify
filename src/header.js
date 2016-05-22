@@ -154,16 +154,8 @@ function do_delete( opt )
 {
 	function do_one_ref( ref )
 	{
-		// Account for the missing verses
-		if ( opt.to_default )
-		{
-			if ( ref.c === opt.c && ref.v >= opt.v )
-			{
-				ref.v += opt.count;
-			}
-		}
 		// Delete the verses
-		else
+		if ( opt.delete )
 		{
 			if ( ref.c === opt.c )
 			{
@@ -175,6 +167,14 @@ function do_delete( opt )
 				{
 					ref.v -= opt.count;
 				}
+			}
+		}
+		// Account for the missing verses
+		else
+		{
+			if ( ref.c === opt.c && ref.v >= opt.v )
+			{
+				ref.v += opt.count;
 			}
 		}
 	}
@@ -196,24 +196,5 @@ function do_delete( opt )
 	else if ( end.deleted )
 	{
 		end.v = opt.v - 1;
-	}
-}
-
-// Handle Psalm headings which have been made their own verse
-function do_psalm_heading( opt )
-{
-	if ( opt.to_default )
-	{
-		opt.entity.start.v -= opt.count;
-		if ( opt.entity.start.v < 1 )
-		{
-			opt.entity.start.v = 1;
-		}
-		opt.entity.end.v -= opt.count;
-	}
-	else
-	{
-		opt.entity.start.v += opt.count;
-		opt.entity.end.v += opt.count;
 	}
 }
