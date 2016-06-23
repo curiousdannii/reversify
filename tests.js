@@ -28,6 +28,14 @@ describe( 'reversify', function()
 		expect( bcv.parse( '2 Cor 13:12 HCSB' ).reversify( 'default' ) ).to.equal( '2Cor.13.12-2Cor.13.13' );
 	});
 
+	it( 'should support setting the from translation using bcv.versification_system()', function()
+	{
+		bcv.versification_system( 'nab' );
+		expect( bcv.parse( 'Lev 5:21' ).reversify( 'default' ) ).to.equal( 'Lev.6.2' );
+		bcv.versification_system( 'esv' );
+		expect( bcv.parse( 'Lev 6:2' ).reversify( 'NAB' ) ).to.equal( 'Lev.5.21' );
+	});
+
 	describe( 'should handle renumbering chapter breaks', function()
 	{
 		it( 'for single verses', function()
