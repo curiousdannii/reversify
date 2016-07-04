@@ -13,21 +13,26 @@
   "homepage": "https://github.com/curiousdannii/reversify",
   "bugs": "https://github.com/curiousdannii/reversify/issues",
   "dependencies": {
-    "lodash": "^4.12.0"
+    "lodash": "^4.13.1"
   },
   "devDependencies": {
     "bible-passage-reference-parser": "^2.0.0",
     "chai": "^3.5.0",
-    "eslint": "^2.10.2",
-    "mocha": "^2.4.5",
+    "eslint": "^3.0.0",
+    "mocha": "^2.5.3",
     "sweet.js": "^0.7.8"
   },
   "peerDependencies": {
     "bible-passage-reference-parser": "^2.0.0"
   },
   "scripts": {
+    "build": "sjs -p -m ./src/macros.sjs src/transformations.data | node > transformations.js",
     "lint": "eslint .",
-    "prepublish": "sjs -p -m ./src/macros.sjs src/transformations.data | node > transformations.js",
     "test": "mocha tests.js"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "sweet.js"
+    ]
   }
 }

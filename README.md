@@ -1,6 +1,7 @@
 # Reversify
 
 [![npm](https://img.shields.io/npm/v/reversify.svg)](https://www.npmjs.com/package/reversify)
+[![Travis build status](https://img.shields.io/travis/curiousdannii/reversify.svg)](https://travis-ci.org/curiousdannii/reversify)
 [![dependencies status](https://img.shields.io/david/curiousdannii/reversify.svg)](https://david-dm.org/curiousdannii/reversify)
 [![devDependencies status](https://img.shields.io/david/dev/curiousdannii/reversify.svg)](https://david-dm.org/curiousdannii/reversify#info=devDependencies)
 
