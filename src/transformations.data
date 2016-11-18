@@ -171,6 +171,10 @@ data
 	{
 		verse split from ceb, hcsb, nab, nrsv to default @ '13:12'
 	}
+	/*book '1John'
+	{
+		// messy many versions 2:13-14
+	}*/
 	book '3John'
 	{
 		verse split from hcsb, kjv to default @ '1:14'
