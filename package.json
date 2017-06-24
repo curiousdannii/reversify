@@ -18,7 +18,7 @@
   "devDependencies": {
     "bible-passage-reference-parser": "^2.0.0",
     "chai": "^4.0.2",
-    "eslint": "^3.0.0",
+    "eslint": "^4.1.0",
     "mocha": "^3.0.0",
     "sweet.js": "^0.7.8"
   },
