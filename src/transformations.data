@@ -182,6 +182,7 @@ data
 	book Rev
 	{
 		verse split from default to ceb, hcsb, nab, nlt, nrsv @ '12:17'
+		// Actually rather messy, see https://christianity.stackexchange.com/a/67149/6071
 	}
 	book Tobit
 	{
